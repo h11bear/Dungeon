@@ -10,14 +10,10 @@ namespace Dungeon
             Console.WriteLine("Please Enter Your Name");
             var characterName = Console.ReadLine();
             Console.WriteLine("Welcome " + characterName);
-
     
-            var dungeonStory = new DungeonStory();
+            var dungeonStory = new DungeonStory(characterName);
             dungeonStory.Start();
-
         }
-
-      
 
     }
 }
