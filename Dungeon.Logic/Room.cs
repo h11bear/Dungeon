@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Dungeon
+namespace Dungeon.Logic
 {
     public class Room
     {

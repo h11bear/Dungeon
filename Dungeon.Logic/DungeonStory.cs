@@ -1,6 +1,6 @@
 using System;
 
-namespace Dungeon
+namespace Dungeon.Logic
 {
     public class DungeonStory
     {

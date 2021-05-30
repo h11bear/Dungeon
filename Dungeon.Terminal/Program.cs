@@ -1,6 +1,7 @@
 ﻿using System;
+using Dungeon.Logic;
 
-namespace Dungeon
+namespace Dungeon.Terminal
 {
     class Program
     {
