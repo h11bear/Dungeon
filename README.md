@@ -5,7 +5,7 @@ https://tecadmin.net/how-to-install-dotnet-core-on-debian-10/
 https://docs.microsoft.com/en-us/dotnet/core/tutorials/library-with-visual-studio-code
 
 Run the console terminal app:
-dotnet run --project .\Dungeon.Terminal\Dungeon.Terminal.csproj
+dotnet run --project Dungeon.Terminal/Dungeon.Terminal.csproj
 
 Create empty solution:
 dotnet new sln

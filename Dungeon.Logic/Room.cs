@@ -28,7 +28,9 @@ namespace Dungeon.Logic
 
         public void Enter()
         {
+            Console.WriteLine();
             Console.WriteLine(Narrative);
+            Console.WriteLine();
         }
 
         public Room Navigate(string choice)
