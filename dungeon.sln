@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Logic", "Dungeon.Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Terminal", "Dungeon.Terminal\Dungeon.Terminal.csproj", "{EFC083D7-6408-4BFF-85C0-059FA3180F0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Web", "Dungeon.Web\Dungeon.Web.csproj", "{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{EFC083D7-6408-4BFF-85C0-059FA3180F0A}.Release|x64.Build.0 = Release|Any CPU
 		{EFC083D7-6408-4BFF-85C0-059FA3180F0A}.Release|x86.ActiveCfg = Release|Any CPU
 		{EFC083D7-6408-4BFF-85C0-059FA3180F0A}.Release|x86.Build.0 = Release|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Debug|x64.Build.0 = Debug|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Debug|x86.Build.0 = Debug|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|x64.ActiveCfg = Release|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|x64.Build.0 = Release|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|x86.ActiveCfg = Release|Any CPU
+		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
