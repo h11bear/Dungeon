@@ -28,4 +28,20 @@ dotnet new mvc --framework netcoreapp3.1 --output Dungeon.Web
 dotnet sln add Dungeon.Web/Dungeon.Web.csproj
 dotnet add Dungeon.Web/Dungeon.Web.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
+Create unit test project:
+dotnet new xunit --framework netcoreapp3.1 --output Dungeon.Tests
+dotnet sln add Dungeon.Tests/Dungeon.Tests.csproj
+
+Add fluent assertions package
+cd Dungeon.Tests
+dotnet add package FluentAssertions --version 5.10.3
+
+Run tests automatically
+create Dungeon.csproj file in root solution to recursively watch files, example towards bottom of this link:
+https://docs.microsoft.com/en-us/aspnet/core/tutorials/dotnet-watch?view=aspnetcore-5.0
+Then run:
+dotnet watch test
+
+Run tests on demand:
+dotnet test
 

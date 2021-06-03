@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Terminal", "Dungeon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Web", "Dungeon.Web\Dungeon.Web.csproj", "{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Tests", "Dungeon.Tests\Dungeon.Tests.csproj", "{4632C9C5-FCDF-479E-9DF5-213B37C4642E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|x64.Build.0 = Release|Any CPU
 		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|x86.ActiveCfg = Release|Any CPU
 		{498586E6-A8BF-4EF9-B2F6-3B5DAF689758}.Release|x86.Build.0 = Release|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Debug|x64.Build.0 = Debug|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Debug|x86.Build.0 = Debug|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Release|x64.ActiveCfg = Release|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Release|x64.Build.0 = Release|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Release|x86.ActiveCfg = Release|Any CPU
+		{4632C9C5-FCDF-479E-9DF5-213B37C4642E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
