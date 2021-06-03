@@ -14,6 +14,7 @@ namespace Dungeon.Logic
             Room gorgonRoom = new Room("You see a scary gorgon!  It stares at you and you turn to stone!");
             Room scaredyCatRoom = new Room("What a chicken!  You are stuck in a prison room, rot in hell.");
             Room moveRockroom = new Room("You move the rock and see a bright blue sky with billowing white clouds. You've escaped!");
+            Room monsterDoorRoom = new Room("You squeeze past the rock and continue on your journey to try and escape this dungeon. You notice that there are some torches lining the walls. You look up and see a giant snake with two heads staring at you! Do you fight or try to turn around?");
             _dungeonEntrance.AddExit("door", rockRoom);
             _dungeonEntrance.AddExit("explore", pitRoom);
             _dungeonEntrance.AddExit("torch", torchRoom);
