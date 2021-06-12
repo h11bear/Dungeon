@@ -12,11 +12,11 @@ namespace Dungeon.Logic
             _dungeonIo = dungeonIo;
             _characterName = characterName;
             _dungeonEntrance = new Room("You find youself in a dark room. You can open the door, explore, or follow the line of torches.", _dungeonIo);
-            
+
             Room rockRoom = new Room("You open the door and find a rock blocking your path. Do you move the rock? Or squeeze by it and continue on the path?", _dungeonIo);
             Room pitRoom = new Room("You look around the room and see a faint light glowing around the corner. There is also what looks like a bottomless pit across the room. What do you inspect first?", _dungeonIo);
             Room torchRoom = new Room("You follow the line of torches and are greeted with a huge brown door.\n\nYou carefully open it and see a mossy green monster staring at you hungrily!\n\nDo you fight it or run away?", _dungeonIo);
-            Room gorgonRoom = new Room("You run up to the troll and punch it in the nose before it has time to react. The troll falls back, temporarily stunned. You use its club that it was holding to smash its skull in.", _dungeonIo);
+            Room trollRoom = new Room("You run up to the troll and punch it in the nose before it has time to react. The troll falls back, temporarily stunned. You use its club that it was holding to smash its skull in.", _dungeonIo);
             Room scaredyCatRoom = new Room("What a chicken!  The troll grabs you and locks you in a prison cell, rot in hell.", _dungeonIo);
             Room moveRockroom = new Room("You move the rock and see a bright blue sky with billowing white clouds. You've escaped!", _dungeonIo);
             Room monsterDoorRoom = new Room(@"You squeeze past the rock and continue on your journey to try and escape this dungeon. You notice that there are some torches
@@ -36,7 +36,7 @@ Thousands of tiny baby snakes come pouring out of the structure. You try to figh
             _dungeonEntrance.AddExit("explore", pitRoom);
             _dungeonEntrance.AddExit("torch", torchRoom);
 
-            torchRoom.AddExit("fight", gorgonRoom);
+            torchRoom.AddExit("fight", trollRoom);
             torchRoom.AddExit("run", scaredyCatRoom);
             rockRoom.AddExit("move", moveRockroom);
             rockRoom.AddExit("squeeze" ,monsterDoorRoom);
