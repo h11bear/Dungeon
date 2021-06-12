@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Dungeon.Logic
@@ -6,9 +5,11 @@ namespace Dungeon.Logic
     public class Room
     {
 
-        public Room(string narrative)
+        private DungeonIo _dungeonIo;
+        public Room(string narrative, DungeonIo dungeonIo)
         {
             Narrative = narrative;
+            _dungeonIo = dungeonIo;
         }
         public string Narrative { get; }
         public bool EndOfGame
@@ -28,9 +29,9 @@ namespace Dungeon.Logic
 
         public void Enter()
         {
-            Console.WriteLine();
-            Console.WriteLine(Narrative);
-            Console.WriteLine();
+            _dungeonIo.WriteLine();
+            _dungeonIo.WriteLine(Narrative);
+            _dungeonIo.WriteLine();
         }
 
         public Room Navigate(string choice)
@@ -44,7 +45,7 @@ namespace Dungeon.Logic
                 }
             }
 
-            Console.WriteLine($"I do not understand what you mean by {choice}, please read the story more carefully!");
+            _dungeonIo.WriteLine($"I do not understand what you mean by {choice}, please read the story more carefully!");
             return this;
         }
 
