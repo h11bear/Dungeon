@@ -6,3 +6,102 @@ You find youself in a dark room. You can open the door, explore, or follow the l
         <exit keyWord="door" room="rockRoom"/>
     </exits>
 </room>
+<room name="doorRoom">
+    <narrative>
+You open the door and find a rock blocking your path. Do you move the rock? Or squeeze by it and continue on the path?
+    </narrative>
+    <exits>
+        <exit keyWord="move" room="moveRockRoom"/>
+    </exits>
+</room>
+<room name="doorRoom">
+    <narrative>
+You open the door and find a rock blocking your path. Do you move the rock? Or squeeze by it and continue on the path?
+    </narrative>
+    <exits>
+        <exit keyWord="squeeze" room="monsterDoorRoom"/>
+    </exits>
+</room>
+<room name="moveRockRoom">
+    <narrative>
+You move the rock and see a bright blue sky with billowing white clouds. You've escaped!
+    </narrative>
+</room>
+<room name="monsterDoorRoom">
+    <narrative>
+You squeeze past the rock and continue on your journey to try and escape this dungeon. You notice that there are some torches
+lining the walls. You look up and see a giant snake with two heads staring at you! Do you fight or try to turn around?
+    </narrative>
+    <exits>
+        <exit keyWord="fight" room="choiceRoom"/>
+    </exits>
+</room>
+<room name="monsterDoorRoom">
+    <narrative>
+You squeeze past the rock and continue on your journey to try and escape this dungeon. You notice that there are some torches
+lining the walls. You look up and see a giant snake with two heads staring at you! Do you fight or try to turn around?
+    </narrative>
+    <exits>
+        <exit keyWord="turn" room="eatToDeathRoom"/>
+    </exits>
+</room>
+<room name="eatToDeathRoom">
+    <narrative>
+You turn around and begin running back the way you came. The snake grabs your shirt with it's mouth from behind and swallows 
+you whole.You coward.
+    </narrative>
+</room>
+<room name="choiceRoom">
+    <narrative>
+Next to you is a sword and a magic wand. Which do you choose to use agaist the beastly snake?
+    </narrative>
+    <exits>
+        <exit keyWord="wand" room="magicWandRoom"/>
+    </exits>
+</room>
+<room name="choiceRoom">
+    <narrative>
+Next to you is a sword and a magic wand. Which do you choose to use agaist the beastly snake?
+    </narrative>
+    <exits>
+        <exit keyWord="sword" room="swordRoom"/>
+    </exits>
+</room>
+<room name="magicWandRoom">
+    <narrative>
+You pick up the magic wand and try to zap a lightning bolt at the snake. The wand falters and instead electricutes you.You are fried.
+    </narrative>
+</room>
+<room name="swordRoom">
+    <narrative>
+You grab the sword, run up to the snake, jump, and slice off its head before it has time to react.
+You successfully slay the beast. Do you climb up the ladder at the back of the room or do you explore?
+    </narrative>
+    <exits>
+        <exit keyWord="ladder" room="elephantRoom"/>
+    </exits>
+</room>
+<room name="swordRoom">
+    <narrative>
+You grab the sword, run up to the snake, jump, and slice off its head before it has time to react.
+You successfully slay the beast. Do you climb up the ladder at the back of the room or do you explore?
+    </narrative>
+    <exits>
+        <exit keyWord="explore" room="babySnakeRoom"/>
+    </exits>
+</room>
+<room name="elephantRoom">
+    <narrative>
+You climb up the tall ladder and step onto the creaky wooden floor. You gasp. A gigantic elephant with mean red eyes stares at you. 
+Do you fight it? Or try to get back down the ladder and look for another exit.
+    </narrative>
+    <exits>
+        <exit keyWord="fight" room="fightRoom"/>
+    </exits>
+</room>
+<room name="babySnakeRoom">
+    <narrative>
+You look around the room and see a giant web-like structure in the far left corner. You walk up to it and poke it with your sword.
+Thousands of tiny baby snakes come pouring out of the structure. You try to fight them off but there are too may. They eat you alive.
+    </narrative>
+</room>
