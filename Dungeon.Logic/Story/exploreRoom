@@ -1,0 +1,16 @@
+<room name="exploreRoom">
+    <narrative>
+You look around the room and see a faint light glowing around the corner. There is also what looks like a bottomless pit across the room. What do you inspect first?
+    </narrative>
+    <exits>
+        <exit keyWord="light" room="glowingLightRoom"/>
+    </exits>
+</room>
+<room name="exploreRoom">
+    <narrative>
+You look around the room and see a faint light glowing around the corner. There is also what looks like a bottomless pit across the room. What do you inspect first?
+    </narrative>
+    <exits>
+        <exit keyWord="pit" room="pitRoom"/>
+    </exits>
+</room>
