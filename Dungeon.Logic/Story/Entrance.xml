@@ -1,29 +1,16 @@
-<story>
-    <rooms>
-        <room name="entrance">
-            <narrative>
+<room name="entrance">
+    <narrative>
 You find youself in a dark room. You can open the door, explore, or follow the line of torches.
-            </narrative>
-            <exits>
-                <exit keyWord="door" room="rockRoom"/>
-            </exits>
-        </room>
-    </rooms>
-    <rooms>
-        <room name="rockRoom">
-            <narrative>
-You open the door and find a rock blocking your path. Do you move the rock? Or squeeze by it and continue on the path?
-            </narrative>
-            <exits>
-                <exit keyWord="move" room="moveRockRoom"/>
-            </exits>
-        </room>
-    </rooms>
-    <rooms>
-        <room name="moveRockRoom">
-            <narrative>
-"You move the rock and see a bright blue sky with billowing white clouds. You've escaped!"
-            </narrative>
-        </room>
-    </rooms>
-</story>
+    </narrative>
+    <exits>
+        <exit keyWord="door" room="rockRoom"/>
+    </exits>
+</room>
+<room name="entrance">
+    <narrative>
+You find youself in a dark room. You can open the door, explore, or follow the line of torches.
+    </narrative>
+    <exits>
+        <exit keyWord="follow" room="torchRoom"/>
+    </exits>
+</room>

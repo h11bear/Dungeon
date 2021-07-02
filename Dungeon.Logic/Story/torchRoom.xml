@@ -1,0 +1,21 @@
+<room name="torchRoom">
+    <narrative>
+You follow the line of torches and are greeted with a huge brown door.You carefully open it and see a mossy green monster staring at you hungrily!Do you fight it or run away?
+    </narrative>
+    <exits>
+        <exit keyWord="run" room="scaredyCatRoom"/>
+    </exits>
+</room>
+<room name="scaredyCatRoom">
+    <narrative>
+What a chicken!  The troll grabs you and locks you in a prison cell, rot in hell.
+    </narrative>
+</room>
+<room name="torchRoom">
+    <narrative>
+You follow the line of torches and are greeted with a huge brown door.You carefully open it and see a mossy green monster staring at you hungrily!Do you fight it or run away?
+    </narrative>
+    <exits>
+        <exit keyWord="fight" room="You run up to the troll and punch it in the nose before it has time to react. The troll falls back, temporarily stunned. You use its club that it was holding to smash its skull in."/>
+    </exits>
+</room>
