@@ -29,12 +29,17 @@ dotnet sln add Dungeon.Web/Dungeon.Web.csproj
 dotnet add Dungeon.Web/Dungeon.Web.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
 Create unit test project:
-dotnet new xunit --framework netcoreapp3.1 --output Dungeon.Tests
-dotnet sln add Dungeon.Tests/Dungeon.Tests.csproj
+dotnet new xunit --framework netcoreapp3.1 --output Dungeon.Tests.Unit
+dotnet sln add Dungeon.Tests.Unit/Dungeon.Tests.Unit.csproj
 
 Add fluent assertions package
-cd Dungeon.Tests
-dotnet add package FluentAssertions --version 5.10.3
+cd Dungeon.Tests.Unit
+dotnet add package FluentAssertions
+
+Create integration test project:
+dotnet new xunit --framework netcoreapp3.1 --output Dungeon.Tests.Integration
+dotnet sln add Dungeon.Tests.Integration/Dungeon.Tests.Integration.csproj
+
 
 Run tests automatically
 create Dungeon.csproj file in root solution to recursively watch files, example towards bottom of this link:

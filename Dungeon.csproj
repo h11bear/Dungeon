@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <TestProjects Include="**\*.csproj" />
+        <TestProjects Include="**\*Unit.csproj" />
         <Watch Include="**\*.cs" />
     </ItemGroup>
 </Project>
