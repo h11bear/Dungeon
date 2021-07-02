@@ -12,8 +12,8 @@ namespace Dungeon.Terminal
             var characterName = Console.ReadLine();
             Console.WriteLine("Welcome " + characterName);
             var terminalIo = new TerminalIo();
-            var dungeonStory = new DungeonStory(characterName, terminalIo);
-            dungeonStory.Start();
+            var dungeonStory = new DungeonStory(characterName);
+            dungeonStory.Start(terminalIo);
         }
 
     }

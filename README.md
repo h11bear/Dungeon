@@ -47,6 +47,10 @@ https://docs.microsoft.com/en-us/aspnet/core/tutorials/dotnet-watch?view=aspnetc
 Then run:
 dotnet watch test
 
-Run tests on demand:
+Run all tests on demand:
+dotnet test
+
+run integration tests:
+cd .\Dungeon.Tests.Integration\
 dotnet test
 
