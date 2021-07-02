@@ -1,5 +1,5 @@
 using System;
-using Dungeon.Logic;
+using Dungeon.Logic.Input;
 
 namespace Dungeon.Terminal {
     public class TerminalIo : DungeonIo {

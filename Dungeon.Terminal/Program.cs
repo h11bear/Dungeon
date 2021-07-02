@@ -1,5 +1,5 @@
 ﻿using System;
-using Dungeon.Logic;
+using Dungeon.Logic.Model;
 
 namespace Dungeon.Terminal
 {

@@ -1,6 +1,7 @@
+using Dungeon.Logic.Input;
 using System.Collections.Generic;
 
-namespace Dungeon.Logic
+namespace Dungeon.Logic.Model
 {
     public class Room
     {

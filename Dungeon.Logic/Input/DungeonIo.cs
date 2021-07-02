@@ -1,4 +1,4 @@
-namespace Dungeon.Logic {
+namespace Dungeon.Logic.Input {
     public interface DungeonIo {
         void WriteLine();
         void WriteLine(string message);

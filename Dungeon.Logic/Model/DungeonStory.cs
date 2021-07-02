@@ -1,5 +1,7 @@
 
-namespace Dungeon.Logic
+using Dungeon.Logic.Input;
+
+namespace Dungeon.Logic.Model
 {
     public class DungeonStory
     {
