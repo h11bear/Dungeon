@@ -39,7 +39,7 @@ dotnet add package FluentAssertions
 Create integration test project:
 dotnet new xunit --framework netcoreapp3.1 --output Dungeon.Tests.Integration
 dotnet sln add Dungeon.Tests.Integration/Dungeon.Tests.Integration.csproj
-
+dotnet add Dungeon.Tests.Integration/Dungeon.Tests.Integration.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
 Run tests automatically
 create Dungeon.csproj file in root solution to recursively watch files, example towards bottom of this link:
