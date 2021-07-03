@@ -54,5 +54,27 @@ namespace Dungeon.Tests.Integration.Data
             getRooms.Should().Throw<StoryDataException>()
                 .And.Message.Should().Contain("Room name is missing in RoomNameMissing, please review XML:");
         }
+
+        [Fact]
+        public void LoadRoomExits()
+        {
+            StoryXmlRepository repo = new StoryXmlRepository();
+            RoomCatalog catalog = repo.GetRooms(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithExits.xml");
+
+            Room exploreRoom = catalog.Find("exploreRoom");
+            exploreRoom.Exits.Should().NotBeEmpty();
+            exploreRoom.Exits[0].Keyword.Should().Be("light");
+            exploreRoom.Exits[0].Room.Should().Be("glowingLightRoom");
+        }
+
+        [Fact]
+        public void LoadRoomWithBrokenExits() 
+        {
+            StoryXmlRepository repo = new StoryXmlRepository();
+                        Action getRooms = () => repo.GetRooms(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithBrokenExits.xml");
+
+            getRooms.Should().Throw<StoryDataException>()
+                .And.Message.Should().Contain("keyword attribute is missing in RoomWithBrokenExits, please review XML:");
+        }
     }
 }

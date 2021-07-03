@@ -12,7 +12,7 @@ namespace Dungeon.Logic.Model
             Narrative = narrative;
         }
         public string Narrative { get; }
-        public string Name { get; set; }
+        public string Name { get; }
         public bool EndOfGame
         {
             get
@@ -25,6 +25,13 @@ namespace Dungeon.Logic.Model
         {
             exits[choice.ToLower()] = exitRoom;
         }
+
+        public void AddExit(RoomExit roomExit) 
+        {
+            Exits.Add(roomExit);
+        }
+
+        public List<RoomExit> Exits { get; } = new List<RoomExit>();
 
         private Dictionary<string, Room> exits = new Dictionary<string, Room>();
 
@@ -39,8 +46,9 @@ namespace Dungeon.Logic.Model
         {
             choice = choice.ToLower();
 
-            foreach(string keyword in exits.Keys) {
-                if (choice.Contains(keyword)) 
+            foreach (string keyword in exits.Keys)
+            {
+                if (choice.Contains(keyword))
                 {
                     return exits[keyword];
                 }

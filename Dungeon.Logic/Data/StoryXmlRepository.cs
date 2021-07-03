@@ -11,27 +11,43 @@ namespace Dungeon.Logic.Data {
         {
             RoomCatalog catalog = new RoomCatalog(Path.GetFileNameWithoutExtension(path));
 
-            XElement dungeonStory = XElement.Load(path);
-            IEnumerable<XElement> rooms = dungeonStory.Descendants("room");
-            foreach(XElement room in rooms) 
+            XElement catalogRoot = XElement.Load(path);
+            IEnumerable<XElement> roomNodes = catalogRoot.Descendants("room");
+            foreach(XElement roomNode in roomNodes) 
             {
-                XAttribute roomName = room.Attribute("name");
+                Room room = new Room(GetRequiredAttribute(roomNode, "name"), GetRequiredAttribute(roomNode, "narrative"));
 
-                if (roomName == null || string.IsNullOrWhiteSpace(roomName.Value)) 
+                var exits = roomNode.Element("exits");
+
+                if (exits != null)
                 {
-                    throw new StoryDataException($"Room name is missing in {catalog.Name}, please review XML:{Environment.NewLine}{room.Value}");
+                    var exitNodes = exits.Descendants("exit");
+
+                    foreach(var exitNode in exitNodes) 
+                    {
+                        RoomExit roomExit = new RoomExit(GetRequiredAttribute(exitNode, "keyword"), GetRequiredAttribute(exitNode, "room"));
+
+                        room.AddExit(roomExit);
+                    }
+
                 }
 
-                XElement narrative = room.Element("narrative");
-                if (string.IsNullOrWhiteSpace(narrative.Value)) 
-                {
-                    throw new StoryDataException($"Narrative is missing for the {roomName.Value} room, please fix!");
-                }
-
-                catalog.AddRoom(new Room(roomName.Value, narrative.Value));
+                catalog.AddRoom(room);
             }
 
             return catalog;
+        }
+
+        private static string GetRequiredAttribute(XElement node, string name) 
+        {
+            XAttribute attribute = node.Attribute(name);
+            if (attribute == null || string.IsNullOrWhiteSpace(attribute.Value)) 
+            {
+                string nodeXml = node.CreateReader().ReadOuterXml();
+                throw new StoryDataException($"{name} attribute is missing in Room XML, please review node:{Environment.NewLine}{nodeXml}");
+            }
+
+            return attribute.Value;
         }
     }
 }
