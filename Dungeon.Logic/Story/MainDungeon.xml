@@ -6,7 +6,7 @@ You find youself in a dark room. You can open the door, explore, or follow the l
         <exits>
             <exit keyword="door" room="rockRoom"/>
             <exit keyword="explore" room="exploreRoom"/>
-            <exit keyword="torch" room="monsterDoorRoom"/>
+            <exit keyword="torch" room="torchRoom"/>
         </exits>
     </room>
     <room name="exploreRoom">

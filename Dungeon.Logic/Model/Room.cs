@@ -36,13 +36,19 @@ namespace Dungeon.Logic.Model
             dungeonIo.WriteLine();
         }
 
-        public RoomExit Navigate(string choice)
+        public RoomExit Navigate(string phrase)
         {
+            string[] words = phrase.Split(' ');
+
             foreach(RoomExit roomExit in Exits)
             {
-                if (roomExit.Keyword.Equals(choice, StringComparison.CurrentCultureIgnoreCase))
+                foreach(string word in words) 
                 {
-                    return roomExit;
+                    if (word.Contains(roomExit.Keyword, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        return roomExit;
+                    }
+
                 }
             }
 
