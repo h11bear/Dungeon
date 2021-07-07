@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Dungeon.Logic.Data {
     public class StoryXmlRepository {
-        public RoomCatalog GetRooms(string path)
+        public RoomCatalog GetCatalog(string path)
         {
             RoomCatalog catalog = new RoomCatalog(Path.GetFileNameWithoutExtension(path));
 
@@ -15,7 +15,9 @@ namespace Dungeon.Logic.Data {
             IEnumerable<XElement> roomNodes = catalogRoot.Descendants("room");
             foreach(XElement roomNode in roomNodes) 
             {
-                Room room = new Room(GetRequiredAttribute(roomNode, "name"), GetRequiredAttribute(roomNode, "narrative"));
+                string roomName = GetRequiredAttribute(roomNode, "name", catalog.Name);
+
+                Room room = new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName));
 
                 var exits = roomNode.Element("exits");
 
@@ -25,7 +27,7 @@ namespace Dungeon.Logic.Data {
 
                     foreach(var exitNode in exitNodes) 
                     {
-                        RoomExit roomExit = new RoomExit(GetRequiredAttribute(exitNode, "keyword"), GetRequiredAttribute(exitNode, "room"));
+                        RoomExit roomExit = new RoomExit(GetRequiredAttribute(exitNode, "keyword",  $"{roomName} exits"), GetRequiredAttribute(exitNode, "room", $"{roomName} exits"));
 
                         room.AddExit(roomExit);
                     }
@@ -38,13 +40,23 @@ namespace Dungeon.Logic.Data {
             return catalog;
         }
 
-        private static string GetRequiredAttribute(XElement node, string name) 
+        private static string GetRequiredContent(XElement node, string name, string customMessage)
+        {
+            XElement contentNode = node.Element(name);
+            if (string.IsNullOrWhiteSpace(contentNode.Value)) 
+            {
+                throw new StoryDataException($"{name} is missing for the {customMessage}");
+            }
+
+            return contentNode.Value;
+        }
+
+        private static string GetRequiredAttribute(XElement node, string name, string customMessage) 
         {
             XAttribute attribute = node.Attribute(name);
             if (attribute == null || string.IsNullOrWhiteSpace(attribute.Value)) 
             {
-                string nodeXml = node.CreateReader().ReadOuterXml();
-                throw new StoryDataException($"{name} attribute is missing in Room XML, please review node:{Environment.NewLine}{nodeXml}");
+                throw new StoryDataException($"{name} attribute is missing for the {customMessage}");
             }
 
             return attribute.Value;

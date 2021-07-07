@@ -43,7 +43,7 @@ namespace Dungeon.Tests.Integration.Data
             StoryXmlRepository repo = new StoryXmlRepository();
             Action getRooms = () => repo.GetRooms(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\NarrativeBroken.xml");
             getRooms.Should().Throw<StoryDataException>()
-                .And.Message.Should().Contain("Narrative is missing for the entrance room, please fix!");
+                .And.Message.Should().Contain("narrative is missing for the entrance");
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Dungeon.Tests.Integration.Data
             StoryXmlRepository repo = new StoryXmlRepository();
             Action getRooms = () => repo.GetRooms(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomNameMissing.xml");
             getRooms.Should().Throw<StoryDataException>()
-                .And.Message.Should().Contain("Room name is missing in RoomNameMissing, please review XML:");
+                .And.Message.Should().Contain("name attribute is missing for");
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace Dungeon.Tests.Integration.Data
                         Action getRooms = () => repo.GetRooms(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithBrokenExits.xml");
 
             getRooms.Should().Throw<StoryDataException>()
-                .And.Message.Should().Contain("keyword attribute is missing in RoomWithBrokenExits, please review XML:");
+                .And.Message.Should().Contain("keyword attribute is missing for the exploreRoom exits");
         }
     }
 }

@@ -6,13 +6,13 @@ namespace Dungeon.Logic.Model
     public class RoomExit
     {
 
-        public RoomExit(string keyword, string room)
+        public RoomExit(string keyword, string roomName)
         {
             Keyword = keyword;
-            Room = room;
+            RoomName = roomName;
         }
         public string Keyword { get; }
-        public string Room { get; }
+        public string RoomName { get; }
 
     }
 }

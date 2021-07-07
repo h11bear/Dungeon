@@ -1,3 +1,4 @@
+using System;
 using Dungeon.Logic.Input;
 using System.Collections.Generic;
 
@@ -17,13 +18,8 @@ namespace Dungeon.Logic.Model
         {
             get
             {
-                return exits.Count.Equals(0);
+                return Exits.Count.Equals(0);
             }
-        }
-
-        public void AddExit(string choice, Room exitRoom)
-        {
-            exits[choice.ToLower()] = exitRoom;
         }
 
         public void AddExit(RoomExit roomExit) 
@@ -33,8 +29,6 @@ namespace Dungeon.Logic.Model
 
         public List<RoomExit> Exits { get; } = new List<RoomExit>();
 
-        private Dictionary<string, Room> exits = new Dictionary<string, Room>();
-
         public void Enter(DungeonIo dungeonIo)
         {
             dungeonIo.WriteLine();
@@ -42,22 +36,18 @@ namespace Dungeon.Logic.Model
             dungeonIo.WriteLine();
         }
 
-        public Room Navigate(string choice, DungeonIo dungeonIo)
+        public RoomExit Navigate(string choice)
         {
-            choice = choice.ToLower();
-
-            foreach (string keyword in exits.Keys)
+            foreach(RoomExit roomExit in Exits)
             {
-                if (choice.Contains(keyword))
+                if (roomExit.Keyword.Equals(choice, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    return exits[keyword];
+                    return roomExit;
                 }
             }
 
-            dungeonIo.WriteLine($"I do not understand what you mean by {choice}, please read the story more carefully!");
-            return this;
+            return null;
         }
-
 
     }
 }

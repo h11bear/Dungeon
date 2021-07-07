@@ -5,6 +5,8 @@ You find youself in a dark room. You can open the door, explore, or follow the l
         </narrative>
         <exits>
             <exit keyword="door" room="rockRoom"/>
+            <exit keyword="explore" room="exploreRoom"/>
+            <exit keyword="torch" room="monsterDoorRoom"/>
         </exits>
     </room>
     <room name="exploreRoom">
@@ -15,6 +17,11 @@ You look around the room and see a faint light glowing around the corner. There 
             <exit keyword="light" room="glowingLightRoom"/>
             <exit keyword="pit" room="pitRoom"/>
         </exits>
+    </room>
+    <room name="glowingLightRoom">
+        <narrative>
+What a disappointment, nothing is going on in the glowing light room!
+        </narrative>
     </room>
     <room name="doorRoom">
         <narrative>

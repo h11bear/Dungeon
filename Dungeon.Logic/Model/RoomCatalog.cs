@@ -17,6 +17,11 @@ namespace Dungeon.Logic.Model
             rooms.Add(room);
         }
 
+        public Room GetEntrance()
+        {
+            return rooms[0];
+        }
+
         public Room Find(string name) 
         {
             return rooms.Find(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));

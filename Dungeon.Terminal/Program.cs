@@ -1,4 +1,5 @@
 ﻿using System;
+using Dungeon.Logic.Data;
 using Dungeon.Logic.Model;
 
 namespace Dungeon.Terminal
@@ -12,7 +13,12 @@ namespace Dungeon.Terminal
             var characterName = Console.ReadLine();
             Console.WriteLine("Welcome " + characterName);
             var terminalIo = new TerminalIo();
-            var dungeonStory = new DungeonStory(characterName);
+
+            StoryXmlRepository storyXmlRepository = new StoryXmlRepository();
+            
+            var roomCatalog = storyXmlRepository.GetCatalog(@"Dungeon.Logic\Story\MainDungeon.xml");
+            
+            var dungeonStory = new DungeonStory(characterName, roomCatalog);
             dungeonStory.Start(terminalIo);
         }
 
