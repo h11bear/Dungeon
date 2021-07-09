@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using Xunit;
 using FluentAssertions;
-using Dungeon.Logic.Data;
 using Dungeon.Logic.Model;
 
 

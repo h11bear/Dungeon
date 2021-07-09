@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Dungeon.Web.Models;
+using Dungeon.Logic.Data;
+using Dungeon.Logic.Model;
 
 namespace Dungeon.Web.Controllers
 {
@@ -20,7 +22,13 @@ namespace Dungeon.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            StoryXmlRepository repository = new StoryXmlRepository();
+            //todo: handle path to XML more gracefully than this
+            RoomCatalog roomCatalog = repository.GetCatalog(@"Bin\Debug\netcoreapp3.1\Story\MainDungeon.xml");
+            DungeonStory dungeonStory = new DungeonStory(roomCatalog);
+            dungeonStory.Begin();
+
+            return View(dungeonStory);
         }
 
         public IActionResult Privacy()
