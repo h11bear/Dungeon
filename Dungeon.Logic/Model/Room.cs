@@ -1,5 +1,4 @@
 using System;
-using Dungeon.Logic.Input;
 using System.Collections.Generic;
 
 namespace Dungeon.Logic.Model
@@ -28,13 +27,6 @@ namespace Dungeon.Logic.Model
         }
 
         public List<RoomExit> Exits { get; } = new List<RoomExit>();
-
-        public void Enter(DungeonIo dungeonIo)
-        {
-            dungeonIo.WriteLine();
-            dungeonIo.WriteLine(Narrative);
-            dungeonIo.WriteLine();
-        }
 
         public RoomExit Navigate(string phrase)
         {

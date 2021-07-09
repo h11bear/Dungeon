@@ -9,6 +9,7 @@ dotnet run --project Dungeon.Terminal/Dungeon.Terminal.csproj
 
 Run the web app:
 dotnet run --project Dungeon.Web/Dungeon.Web.csproj
+Run the web app in watch mode:
 
 
 Create empty solution:

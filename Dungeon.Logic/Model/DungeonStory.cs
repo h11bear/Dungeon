@@ -1,54 +1,61 @@
 
-using Dungeon.Logic.Input;
-
 namespace Dungeon.Logic.Model
 {
     public class DungeonStory
     {
-        private string _characterName;
         private RoomCatalog _roomCatalog;
-        public DungeonStory(string characterName, RoomCatalog roomCatalog)
+        public DungeonStory(RoomCatalog roomCatalog)
         {
-            _characterName = characterName;
             _roomCatalog = roomCatalog;
         }
 
-
-        public void Start(DungeonIo dungeonIo)
+        public string Narrative 
         {
-            Room currentRoom = _roomCatalog.GetEntrance();
-            currentRoom.Enter(dungeonIo);
-
-            while (true)
+            get 
             {
-                var choice = dungeonIo.ReadLine();
+                return CurrentRoom.Narrative;
+            }
+        }
 
-                RoomExit roomExit = currentRoom.Navigate(choice);
-                if (roomExit == null)
-                {
-                    dungeonIo.WriteLine($"I do not understand what you mean by {choice}, please read the story more carefully!");
-                }
-                else
-                {
-                    currentRoom = _roomCatalog.Find(roomExit.RoomName);
+        public void Begin()
+        {
+            CurrentRoom = _roomCatalog.GetEntrance();
+        }
 
-                    if (currentRoom == null)
-                    {
-                            dungeonIo.WriteLine($"Sorry, the programmer made a mistake!  Could not find room {roomExit.RoomName}!");
-                            dungeonIo.Exit(1);
-                    }
-                    else
-                    {
-                        currentRoom.Enter(dungeonIo);
+        public void Navigate(string phrase) 
+        {
+            RoomExit roomExit = CurrentRoom.Navigate(phrase);
+            if (roomExit == null) 
+            {
+                throw new NavigationException($"I do not understand what you mean by {phrase}, please read the story more carefully!");
+            } 
+            else
+            {
+                EnterRoom(roomExit.RoomName);
+            }
+        }
 
-                        if (currentRoom.EndOfGame)
-                        {
-                            dungeonIo.WriteLine($"Thanks for playing {_characterName}!");
-                            dungeonIo.Exit(0);
-                        }
-                    }
+        private void EnterRoom(string roomName)
+        {
+            CurrentRoom = _roomCatalog.Find(roomName);
 
-                }
+            if (CurrentRoom == null)
+            {
+                throw new RoomNotFoundException($"Sorry, the programmer made a mistake!  Could not find room {roomName}!");
+            }
+        }
+        public Room CurrentRoom { get; private set; }
+
+        public void Resume(string roomName)
+        {
+            EnterRoom(roomName);
+        }
+
+        public bool EndOfGame 
+        {
+            get 
+            {
+                return CurrentRoom.EndOfGame;
             }
         }
     }

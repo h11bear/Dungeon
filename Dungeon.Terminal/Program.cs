@@ -8,19 +8,69 @@ namespace Dungeon.Terminal
     {
         static void Main(string[] args)
         {
+            Console.WriteLine();
             Console.WriteLine("Welcome to the Dungeon");
-            Console.WriteLine("Please Enter Your Name");
-            var characterName = Console.ReadLine();
+            Console.WriteLine();
+            string characterName = null;
+
+            while (string.IsNullOrEmpty(characterName))
+            {
+                Console.WriteLine("Please enter your name traveler");
+                Console.WriteLine();
+
+                characterName = Console.ReadLine().Trim();
+                if (string.IsNullOrEmpty(characterName))
+                {
+                    WriteCriticalError("The nameless are not allowed passage to the dungeon!");
+                }
+            }
+            Console.WriteLine();
             Console.WriteLine("Welcome " + characterName);
-            var terminalIo = new TerminalIo();
 
             StoryXmlRepository storyXmlRepository = new StoryXmlRepository();
-            
+
             var roomCatalog = storyXmlRepository.GetCatalog(@"Dungeon.Logic\Story\MainDungeon.xml");
-            
-            var dungeonStory = new DungeonStory(characterName, roomCatalog);
-            dungeonStory.Start(terminalIo);
+
+            var dungeonStory = new DungeonStory(roomCatalog);
+            dungeonStory.Begin();
+
+            while (true)
+            {
+                Console.WriteLine();
+                Console.WriteLine(dungeonStory.Narrative);
+                Console.WriteLine();
+
+                if (dungeonStory.EndOfGame)
+                {
+                    Console.WriteLine($"Thanks for playing {characterName}!");
+                    Environment.Exit(0);
+                }
+
+                string choice = Console.ReadLine();
+
+                try
+                {
+                    dungeonStory.Navigate(choice);
+                }
+                catch (NavigationException navEx)
+                {
+                    WriteCriticalError(navEx.Message);
+                }
+                catch (RoomNotFoundException roomEx)
+                {
+                    WriteCriticalError(roomEx.Message);
+                    Environment.Exit(1);
+                }
+
+            }
         }
 
+        private static void WriteCriticalError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(message);
+            Console.WriteLine();
+            Console.ResetColor();
+        }
     }
 }
