@@ -10,7 +10,7 @@ namespace Dungeon.Web.Models
 
         }
 
-        public List<StoryFragment> StoryFragments { get; } = new List<StoryFragment>();
+        public List<NarrativeFragment> StoryFragments { get; } = new List<NarrativeFragment>();
 
 
     }
