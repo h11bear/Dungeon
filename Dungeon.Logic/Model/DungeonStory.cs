@@ -22,12 +22,12 @@ namespace Dungeon.Logic.Model
             CurrentRoom = _roomCatalog.GetEntrance();
         }
 
-        public void Navigate(string phrase) 
+        public void Navigate(string keyword) 
         {
-            RoomExit roomExit = CurrentRoom.Navigate(phrase);
+            RoomExit roomExit = CurrentRoom.Navigate(keyword);
             if (roomExit == null) 
             {
-                throw new NavigationException($"I do not understand what you mean by {phrase}, please read the story more carefully!");
+                throw new NavigationException($"I do not understand what you mean by {keyword}, please read the story more carefully!");
             } 
             else
             {

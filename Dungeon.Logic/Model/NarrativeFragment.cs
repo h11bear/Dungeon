@@ -2,14 +2,31 @@ namespace Dungeon.Logic.Model
 {
     public class NarrativeFragment
     {
-        public NarrativeFragment(string text, bool isLink)
+        private NarrativeFragment(string text, string keyword)
         {
             Text = text;
-            IsLink = isLink;
+            Keyword = keyword;
         }
 
         public string Text { get; }
-        public bool IsLink { get; }
+        public string Keyword { get; }
+        public bool IsLink
+        {
+            get
+            {
+                return Keyword != null;
+            }
+        }
+
+        public static NarrativeFragment PlainText(string text)
+        {
+            return new NarrativeFragment(text, null);
+        }
+
+        public static NarrativeFragment NavLink(string text, string keyword)
+        {
+            return new NarrativeFragment(text, keyword);
+        }
 
     }
 }

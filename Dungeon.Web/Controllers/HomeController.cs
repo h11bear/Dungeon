@@ -27,8 +27,24 @@ namespace Dungeon.Web.Controllers
             RoomCatalog roomCatalog = repository.GetCatalog(@"Bin\Debug\netcoreapp3.1\Story\MainDungeon.xml");
             DungeonStory dungeonStory = new DungeonStory(roomCatalog);
             dungeonStory.Begin();
+            DungeonStoryViewModel viewModel = new DungeonStoryViewModel(dungeonStory);
 
-            return View(dungeonStory);
+            return View(viewModel);
+        }
+
+        public IActionResult Navigate(string room, string keyword)
+        {
+            StoryXmlRepository repository = new StoryXmlRepository();
+            //todo: handle path to XML more gracefully than this
+            RoomCatalog roomCatalog = repository.GetCatalog(@"Bin\Debug\netcoreapp3.1\Story\MainDungeon.xml");
+            DungeonStory dungeonStory = new DungeonStory(roomCatalog);
+            dungeonStory.Resume(room);
+            dungeonStory.Navigate(keyword);
+
+            DungeonStoryViewModel viewModel = new DungeonStoryViewModel(dungeonStory);
+
+            return View("Index", viewModel);
+
         }
 
         public IActionResult Privacy()

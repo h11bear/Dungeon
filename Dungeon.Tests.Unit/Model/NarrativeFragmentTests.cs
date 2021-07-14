@@ -52,5 +52,18 @@ namespace Dungeon.Tests.Unit.ViewModels
         }
 
         //TODO: next test we extend keyword match until space, punctuation, or end of word
+        [Fact]
+        public void KeywordMatchIsExtendedUntilNonAlphaCharacter()
+        {
+            var entrance = new Room("entrance", "pick up the torches, food, or box");
+            entrance.AddExit(new RoomExit("torch", "torchRoom"));
+            
+            NarrativeParser narrativeParser = new NarrativeParser();
+
+            List<NarrativeFragment> fragments = narrativeParser.Parse(entrance);
+
+            fragments[1].Text.Should().Be("torches");
+            fragments[1].Keyword.Should().Be("torch");
+        }
     }
 }

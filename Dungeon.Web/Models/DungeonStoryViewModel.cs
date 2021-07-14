@@ -7,10 +7,13 @@ namespace Dungeon.Web.Models
     {
         public DungeonStoryViewModel(DungeonStory story)
         {
-
+            var parser = new NarrativeParser();
+            StoryFragments = parser.Parse(story.CurrentRoom);
+            RoomName = story.CurrentRoom.Name;
         }
 
-        public List<NarrativeFragment> StoryFragments { get; } = new List<NarrativeFragment>();
+        public string RoomName { get; }
+        public List<NarrativeFragment> StoryFragments { get; }
 
 
     }

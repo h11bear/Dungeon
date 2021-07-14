@@ -1,4 +1,4 @@
-@model Dungeon.Logic.Model.DungeonStory
+@model DungeonStoryViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -7,6 +7,16 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to the Dungeon</h1>
     <p>
-        @Model.Narrative
+        @foreach (var storyFragment in Model.StoryFragments)
+        {
+            if (storyFragment.IsLink) 
+            {
+                <text><a href="/home/navigate/@Model.RoomName/@storyFragment.Text">@storyFragment.Text</a></text>
+            }
+            else 
+            {
+                <text>@storyFragment.Text</text>
+            }
+        }
     </p>
 </div>
