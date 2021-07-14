@@ -9,9 +9,9 @@ namespace Dungeon.Logic.Model
             _roomCatalog = roomCatalog;
         }
 
-        public string Narrative 
+        public string Narrative
         {
-            get 
+            get
             {
                 return CurrentRoom.Narrative;
             }
@@ -20,15 +20,18 @@ namespace Dungeon.Logic.Model
         public void Begin()
         {
             CurrentRoom = _roomCatalog.GetEntrance();
+            IsEntrance = true;
         }
 
-        public void Navigate(string keyword) 
+        public bool IsEntrance { get; private set; }
+
+        public void Navigate(string keyword)
         {
             RoomExit roomExit = CurrentRoom.Navigate(keyword);
-            if (roomExit == null) 
+            if (roomExit == null)
             {
                 throw new NavigationException($"I do not understand what you mean by {keyword}, please read the story more carefully!");
-            } 
+            }
             else
             {
                 EnterRoom(roomExit.RoomName);
@@ -51,9 +54,9 @@ namespace Dungeon.Logic.Model
             EnterRoom(roomName);
         }
 
-        public bool EndOfGame 
+        public bool EndOfGame
         {
-            get 
+            get
             {
                 return CurrentRoom.EndOfGame;
             }
