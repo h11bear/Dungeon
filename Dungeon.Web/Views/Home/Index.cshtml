@@ -9,14 +9,19 @@
     <p>
         @foreach (var storyFragment in Model.StoryFragments)
         {
-            if (storyFragment.IsLink) 
+            if (storyFragment.IsLink)
             {
                 <text><a href="/home/navigate/@Model.RoomName/@storyFragment.Text">@storyFragment.Text</a></text>
             }
-            else 
+            else
             {
                 <text>@storyFragment.Text</text>
             }
         }
     </p>
+    @if (Model.EndOfGame)
+    {
+        <p>You've reached the end of your journey, thanks for playing!</p>
+        <p><a href="/home">Play again</a></p>
+    }
 </div>

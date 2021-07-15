@@ -8,13 +8,13 @@ namespace Dungeon.Web.Models
         public DungeonStoryViewModel(DungeonStory story)
         {
             var parser = new NarrativeParser();
+            Story = story;
             StoryFragments = parser.Parse(story.CurrentRoom);
-            RoomName = story.CurrentRoom.Name;
-            if (story.IsEntrance) 
+            if (story.IsEntrance)
             {
                 Headline = "Welcome to the Dungeon!";
-            } 
-            else 
+            }
+            else
             {
                 Headline = "You're getting into the depths....";
             }
@@ -22,8 +22,23 @@ namespace Dungeon.Web.Models
 
         public string Headline { get; set; }
 
-        public string RoomName { get; }
+        public string RoomName
+        {
+            get
+            {
+                return Story.CurrentRoom.Name;
+            }
+        }
+        public DungeonStory Story { get; }
         public List<NarrativeFragment> StoryFragments { get; }
+
+        public bool EndOfGame
+        {
+            get
+            {
+                return Story.EndOfGame;
+            }
+        }
 
 
     }
