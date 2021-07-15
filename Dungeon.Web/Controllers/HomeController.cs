@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Dungeon.Web.Models;
@@ -14,43 +12,51 @@ namespace Dungeon.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
         {
-            StoryXmlRepository repository = new StoryXmlRepository();
-            //todo: handle path to XML more gracefully than this
-            RoomCatalog roomCatalog = repository.GetCatalog(@"Bin\Debug\netcoreapp3.1\Story\MainDungeon.xml");
-            DungeonStory dungeonStory = new DungeonStory(roomCatalog);
+            DungeonStory dungeonStory = GetStory();
             dungeonStory.Begin();
             DungeonStoryViewModel viewModel = new DungeonStoryViewModel(dungeonStory);
 
             return View(viewModel);
         }
 
-        public IActionResult Navigate(string room, string keyword)
+        private DungeonStory GetStory()
         {
             StoryXmlRepository repository = new StoryXmlRepository();
-            //todo: handle path to XML more gracefully than this
-            RoomCatalog roomCatalog = repository.GetCatalog(@"Bin\Debug\netcoreapp3.1\Story\MainDungeon.xml");
+            RoomCatalog roomCatalog = repository.GetCatalog(Path.Combine(_configuration["Dungeon:StoryPath"], "MainDungeon.xml"));
             DungeonStory dungeonStory = new DungeonStory(roomCatalog);
-            dungeonStory.Resume(room);
-            dungeonStory.Navigate(keyword);
-
-            DungeonStoryViewModel viewModel = new DungeonStoryViewModel(dungeonStory);
-
-            return View("Index", viewModel);
-
+            return dungeonStory;
         }
 
-        public IActionResult Privacy()
+        public IActionResult Navigate(string room, string keyword)
         {
-            return View();
+            try
+            {
+                DungeonStory dungeonStory = GetStory();
+                dungeonStory.Resume(room);
+                dungeonStory.Navigate(keyword);
+
+                DungeonStoryViewModel viewModel = new DungeonStoryViewModel(dungeonStory);
+
+                return View("Index", viewModel);
+            }
+            catch (RoomNotFoundException ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+                return View("Mistake");
+            }
+
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
