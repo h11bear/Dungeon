@@ -49,9 +49,16 @@ dotnet new xunit --framework netcoreapp3.1 --output Dungeon.Tests.Integration
 dotnet sln add Dungeon.Tests.Integration/Dungeon.Tests.Integration.csproj  
 dotnet add Dungeon.Tests.Integration/Dungeon.Tests.Integration.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
+## Setup web project publishing
+cd .\Dungeon.Web
+dotnet publish -c Release -o ./publish
+
 ## Setting up Chromebook for development
 https://tecadmin.net/how-to-install-dotnet-core-on-debian-10/  
-https://docs.microsoft.com/en-us/dotnet/core/tutorials/library-with-visual-studio-code
 
-## Mardown reference
+## Markdown reference
 https://www.markdownguide.org/basic-syntax/
+
+
+## .deploymnet file
+https://github.com/projectkudu/kudu/wiki/Customizing-deployments#deploying-a-specific-aspnet-or-aspnet-core-project-file
