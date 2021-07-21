@@ -65,3 +65,5 @@ https://github.com/projectkudu/kudu/wiki/Customizing-deployments#deploying-a-spe
 
 ## Deployment options
 https://wakeupandcode.com/deploying-asp-net-core-3-1-to-azure-app-service/
+
+https://docs.microsoft.com/en-us/azure/app-service/deploy-local-git?tabs=cli

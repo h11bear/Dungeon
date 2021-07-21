@@ -28,7 +28,10 @@ if (Test-Path -Path $deployFolder)
     Remove-Item $deployFolder -Recurse
 }
 
-$webApp = New-AzWebApp -ResourceGroupName $ResourceGroup -AppServicePlan $Plan -Name $AppName 
+Write-Output "Creating $AppName"
+New-AzWebApp -ResourceGroupName $ResourceGroup -AppServicePlan $Plan -Name $AppName 
+#New-AzWebApp creates a git remote named azure
+
 #$deplomentConfig = az webapp create --resource-group $ResourceGroup --plan $Plan --name $AppName --runtime "DOTNETCORE:3.1" --deployment-local-git
 
 $webApp
@@ -74,4 +77,5 @@ $webApp
 # git push azure master
 
 #Remove-AzResourceGroup -Name DungeonResourceGroup
-#Remove-AzWebApp -ResourceGroupName DungeonResourceGroup -Name RoyDungeon
+#Remove-AzWebApp -ResourceGroupName DungeonResourceGroup -Name RoyDungeon -Force
+#New-AzWebApp -ResourceGroupName DungeonResourceGroup -AppServicePlan dungeonPlan -Name RoyDungeon 
