@@ -62,3 +62,6 @@ https://www.markdownguide.org/basic-syntax/
 
 ## .deploymnet file
 https://github.com/projectkudu/kudu/wiki/Customizing-deployments#deploying-a-specific-aspnet-or-aspnet-core-project-file
+
+## Deployment options
+https://wakeupandcode.com/deploying-asp-net-core-3-1-to-azure-app-service/
