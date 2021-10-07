@@ -1,10 +1,28 @@
-﻿@page
+﻿@page "{roomName?}/{keyword?}"
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var dungeonStory = Model.DungeonStory;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@dungeonStory.Headline</h1>
+     <p>
+        @foreach (var storyFragment in dungeonStory.StoryFragments)
+        {
+            if (storyFragment.IsLink)
+            {
+                <text><a href="/@dungeonStory.RoomName/@storyFragment.Text">@storyFragment.Text</a></text>
+            }
+            else
+            {
+                <text>@storyFragment.Text</text>
+            }
+        }
+    </p>
+    @if (dungeonStory.EndOfGame)
+    {
+        <p>You've reached the end of your journey, thanks for playing!</p>
+        <p><a href="/">Play again</a></p>
+    }
 </div>

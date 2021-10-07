@@ -42,6 +42,7 @@ dotnet add Dungeon.Web/Dungeon.Web.csproj reference Dungeon.Logic/Dungeon.Logic.
 ## Create RazorPages web app project with authentication
 dotnet new webapp --auth Individual --output Dungeon.RazorPages
 dotnet sln add Dungeon.RazorPages/Dungeon.RazorPages.csproj
+dotnet add Dungeon.RazorPages/Dungeon.RazorPages.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
 ## Create unit test project
 dotnet new xunit --output Dungeon.Tests.Unit  

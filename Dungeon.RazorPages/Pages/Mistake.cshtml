@@ -1,3 +1,5 @@
+﻿@page "{message}"
+@model Dungeon.RazorPages.Pages.MistakeModel
 @{
     ViewData["Title"] = "Whoops...";
 }
@@ -5,7 +7,7 @@
 <div class="text-center">
     <h1 class="display-4">Whoops...</h1>
     <p>
-        @ViewData["ErrorMessage"]
+        @Model.Message
     </p>
     <p>
         <a href="/">Restart</a> your journey

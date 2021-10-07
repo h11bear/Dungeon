@@ -37,12 +37,12 @@ namespace Dungeon.Web.Controllers
             return dungeonStory;
         }
 
-        public IActionResult Navigate(string room, string keyword)
+        public IActionResult Navigate(string roomName, string keyword)
         {
             try
             {
                 DungeonStory dungeonStory = GetStory();
-                dungeonStory.Resume(room);
+                dungeonStory.Resume(roomName);
                 dungeonStory.Navigate(keyword);
 
                 DungeonStoryViewModel viewModel = new DungeonStoryViewModel(dungeonStory);
