@@ -6,6 +6,9 @@ dotnet run --project Dungeon.Web/Dungeon.Web.csproj
 ## Run ASP.NET MVC web app in watch mode
 dotnet watch run --project Dungeon.Web/Dungeon.Web.csproj
 
+## Run ASP.NET RazorPages web app in watch mode
+dotnet watch run --project Dungeon.RazorPages/Dungeon.RazorPages.csproj
+
 ## Run console app
 dotnet run --project Dungeon.Terminal/Dungeon.Terminal.csproj
 
@@ -23,21 +26,25 @@ dotnet test
 dotnet new sln
 
 ## Create library project
-dotnet new classlib --framework netcoreapp3.1 -o Dungeon.Logic  
+dotnet new classlib -o Dungeon.Logic  
 dotnet sln add Dungeon.Logic/Dungeon.Logic.csproject
 
 ## Create console project with reference to Dungeon.Logic
-dotnet new console --framework netcoreapp3.1 -o Dungeon.Terminal  
+dotnet new console -o Dungeon.Terminal  
 dotnet sln add Dungeon.Terminal/Dungeon.Terminal.csproj  
 dotnet add Dungeon.Terminal/Dungeon.Terminal.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
 ## Create MVC web project with reference to Dungeon.Logic
-dotnet new mvc --framework netcoreapp3.1 --output Dungeon.Web  
-dotnet sln add Dungeon.Web/Dungeon.Web.csproj  
+dotnet new mvc --output Dungeon.Web  
+dotnet sln add Dungeon.Web/Dungeon.Web.csproj
 dotnet add Dungeon.Web/Dungeon.Web.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
+## Create RazorPages web app project with authentication
+dotnet new webapp --auth Individual --output Dungeon.RazorPages
+dotnet sln add Dungeon.RazorPages/Dungeon.RazorPages.csproj
+
 ## Create unit test project
-dotnet new xunit --framework netcoreapp3.1 --output Dungeon.Tests.Unit  
+dotnet new xunit --output Dungeon.Tests.Unit  
 dotnet sln add Dungeon.Tests.Unit/Dungeon.Tests.Unit.csproj
 
 ## Add fluent assertions package
@@ -45,7 +52,7 @@ cd Dungeon.Tests.Unit
 dotnet add package FluentAssertions
 
 ## Create integration test project
-dotnet new xunit --framework netcoreapp3.1 --output Dungeon.Tests.Integration  
+dotnet new xunit --output Dungeon.Tests.Integration  
 dotnet sln add Dungeon.Tests.Integration/Dungeon.Tests.Integration.csproj  
 dotnet add Dungeon.Tests.Integration/Dungeon.Tests.Integration.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 

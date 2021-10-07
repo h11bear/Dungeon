@@ -1,0 +1,17 @@
+## Microsoft Get Started
+https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-5.0&tabs=visual-studio
+
+## User secrets
+%APPDATA%\Microsoft\UserSecrets
+dotnet user-secrets set "AppSettings:DatabasePassword" "<password>"
+
+## add PostgreSQL entity framework support, remove Sqlite
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet remove package Microsoft.EntityFrameworkCore.Sqlite
+
+## deploy Identity to PostgreSQL
+https://decovar.dev/blog/2020/10/17/dotnet-core-identity-postgresql/
+dotnet ef database update 0
+dotnet ef migrations remove
+dotnet ef migrations add CreateIdentitySchema
+dotnet ef database update
