@@ -71,3 +71,12 @@ https://docs.microsoft.com/en-us/azure/app-service/deploy-local-git?tabs=cli
 https://github.com/projectkudu/kudu/wiki/Deployment-branch
 
 https://docs.microsoft.com/en-us/powershell/module/az.websites/publish-azwebapp?view=azps-6.2.1
+
+## authentication
+https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-5.0&tabs=visual-studio
+
+## Migrate from .NET Core 3.1 to 5.0
+https://docs.microsoft.com/en-us/aspnet/core/migration/31-to-50?view=aspnetcore-5.0&tabs=visual-studio-code
+
+## To update NuGet packages versions run dotnet add again
+dotnet add package <packagename>
