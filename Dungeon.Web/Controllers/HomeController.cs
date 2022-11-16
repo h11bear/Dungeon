@@ -31,12 +31,14 @@ namespace Dungeon.Web.Controllers
 
         private DungeonStory GetStory()
         {
+            //! is the "null forgiving" operator that can be used on strings
             StoryXmlRepository repository = new StoryXmlRepository();
-            RoomCatalog roomCatalog = repository.GetCatalog(Path.Combine(_configuration["Dungeon:StoryPath"], "MainDungeon.xml"));
+            RoomCatalog roomCatalog = repository.GetCatalog(Path.Combine(_configuration["Dungeon:StoryPath"]!, "MainDungeon.xml"));
             DungeonStory dungeonStory = new DungeonStory(roomCatalog);
             return dungeonStory;
         }
 
+        [Route("navigate/{roomName}/{keyword}")]
         public IActionResult Navigate(string roomName, string keyword)
         {
             try
@@ -58,6 +60,7 @@ namespace Dungeon.Web.Controllers
         }
 
 
+        [Route("Error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -3,4 +3,8 @@
         <TestProjects Include="**\*Unit.csproj" />
         <Watch Include="**\*.cs" />
     </ItemGroup>
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+    </PropertyGroup>
 </Project>

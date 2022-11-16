@@ -88,3 +88,26 @@ https://docs.microsoft.com/en-us/aspnet/core/migration/31-to-50?view=aspnetcore-
 
 ## To update NuGet packages versions run dotnet add again
 dotnet add package <packagename>
+
+## Azure template best practices
+https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/best-practices
+
+## Configure git source control
+git config --global user.name "First Last"
+git config --global user.email "emailaddress"
+git config --global color.ui true
+git config --global --list
+
+## Visual git history GUI
+gitk
+
+#init repository
+git init
+git status
+
+git add "filename"
+
+git log
+
+## differences between two commits
+git diff 42cac124d ac872dc94

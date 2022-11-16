@@ -11,7 +11,7 @@
         {
             if (storyFragment.IsLink)
             {
-                <text><a href="/home/navigate/@Model.RoomName/@storyFragment.Text">@storyFragment.Text</a></text>
+                <text><a href="/navigate/@Model.RoomName/@storyFragment.Text">@storyFragment.Text</a></text>
             }
             else
             {
@@ -22,6 +22,6 @@
     @if (Model.EndOfGame)
     {
         <p>You've reached the end of your journey, thanks for playing!</p>
-        <p><a href="/home">Play again</a></p>
+        <p><a href="/">Play again</a></p>
     }
 </div>

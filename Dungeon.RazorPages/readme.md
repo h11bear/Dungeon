@@ -24,3 +24,21 @@ dotnet new page --name NavigationError --namespace Dungeon.RazorPages.Pages --ou
 
 ## run app in watch mode
 dotnet watch run
+
+## install dotnet trace tool
+dotnet tool install --global dotnet-trace
+
+## list processes with dotnet trace
+dotnet trace ps
+
+## collect trace events
+dotnet trace collect -p 17936
+
+## logging in asp.net core 5.0
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0
+
+dotnet add package Microsoft.Extensions.Logging.AzureAppServices
+
+## access Blob storage
+dotnet add package Azure.Storage.Blobs
+dotnet add package Azure.Identity

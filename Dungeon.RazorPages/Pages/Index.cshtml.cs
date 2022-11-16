@@ -21,9 +21,12 @@ namespace Dungeon.RazorPages.Pages
         {
             _logger = logger;
             _configuration = configuration;
+            _logger.LogWarning("Hello dungeon logging!");
+            DatabaseHost = _configuration.GetValue<string>("AppSettings:DatabaseHost");
         }
 
         public DungeonStoryViewModel DungeonStory { get; private set; }
+        public string DatabaseHost {get;}
         public IActionResult OnGet(string roomName, string keyword)
         {
             DungeonStory dungeonStory = GetStory();
@@ -58,7 +61,7 @@ namespace Dungeon.RazorPages.Pages
         private DungeonStory GetStory()
         {
             StoryXmlRepository repository = new StoryXmlRepository();
-            RoomCatalog roomCatalog = repository.GetCatalog(Path.Combine(_configuration["Dungeon:StoryPath"], "MainDungeon.xml"));
+            RoomCatalog roomCatalog = repository.GetCatalog(Path.Combine(_configuration.GetValue<string>("Dungeon:StoryPath"), "MainDungeon.xml"));
             DungeonStory dungeonStory = new DungeonStory(roomCatalog);
             return dungeonStory;
         }
