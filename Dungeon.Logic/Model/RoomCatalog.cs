@@ -1,12 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Logic.Model
 {
     public class RoomCatalog
     {
         private List<Room> rooms = new List<Room>();
-        public string Name { get; }  
+
+        [Required]
+        [MaxLength(50)]
+        public string Name { get; private set; }
+        public int RoomCatalogId {get; private set;}
+        public RoomCatalog(int roomCatalogId, string name)
+        {
+            RoomCatalogId = roomCatalogId;
+            Name = name;
+        }
+
         public RoomCatalog(string name)
         {
             Name = name;

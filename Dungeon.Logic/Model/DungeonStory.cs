@@ -3,6 +3,7 @@ namespace Dungeon.Logic.Model
 {
     public class DungeonStory
     {
+        
         private RoomCatalog _roomCatalog;
         public DungeonStory(RoomCatalog roomCatalog)
         {

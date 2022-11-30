@@ -6,13 +6,15 @@ namespace Dungeon.Logic.Model
     public class Room
     {
 
-        public Room(string name, string narrative)
+        public Room(int roomId, string name, string narrative)
         {
+            RoomId = roomId;
             Name = name;
             Narrative = narrative;
         }
-        public string Narrative { get; }
-        public string Name { get; }
+        public int RoomId {get; private set;}
+        public string Narrative { get; private set;}
+        public string Name { get; private set;}
         public bool EndOfGame
         {
             get

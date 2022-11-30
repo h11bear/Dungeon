@@ -8,8 +8,8 @@ namespace Dungeon.Logic.Model
             Keyword = keyword;
             RoomName = roomName;
         }
-        public string Keyword { get; }
-        public string RoomName { get; }
+        public string Keyword { get; private set; }
+        public string RoomName { get; private set; }
 
     }
 }

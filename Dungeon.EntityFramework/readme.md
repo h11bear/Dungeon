@@ -1,6 +1,8 @@
 ## Add SQL Server entity framework
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
+## Update entity framework tools to latest version
+dotnet tool update --global dotnet-ef
 
 ## Add appsettings support
 dotnet add package Microsoft.Extensions.Configuration
@@ -15,3 +17,11 @@ dotnet add package coverlet.collector
 
 ## dependency injection in console app
 https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-usage
+
+
+## setup EF migrations and deploy database
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+dotnet ef migrations add RoomCatalogRename
+

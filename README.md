@@ -48,9 +48,10 @@ dotnet add Dungeon.RazorPages/Dungeon.RazorPages.csproj reference Dungeon.Logic/
 dotnet new xunit --output Dungeon.Tests.Unit  
 dotnet sln add Dungeon.Tests.Unit/Dungeon.Tests.Unit.csproj
 
-## Create Database project for EF Core
+## Create Infrastructure project for EF Core
 dotnet new console --output Dungeon.Database
-dotnet add Dungeon.Database/Dungeon.Database.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
+dotnet sln add Dungeon.Infrastructure/Dungeon.Infrastructure.csproj
+dotnet add Dungeon.Infrastructure/Dungeon.Infrastructure.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
 ## Add fluent assertions package
 cd Dungeon.Tests.Unit  
