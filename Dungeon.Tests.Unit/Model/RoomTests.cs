@@ -14,7 +14,7 @@ namespace Dungeon.Tests.Unit.Model
         public void NavigateToARoomExit()
         {
             Room myRoom = new Room("myRoom", "scary business");
-            myRoom.Exits.Add(new RoomExit("business", "theBusinessRoom"));
+            myRoom.AddExit(new RoomExit("business", "theBusinessRoom"));
             
             RoomExit businessExit = myRoom.Navigate("business");
             businessExit.Should().NotBeNull();
@@ -25,7 +25,7 @@ namespace Dungeon.Tests.Unit.Model
         public void NavigateToARoomThatDoesNotExist()
         {
             Room myRoom = new Room("myRoom", "scary business");
-            myRoom.Exits.Add(new RoomExit("business", "theBusinessRoom"));
+            myRoom.AddExit(new RoomExit("business", "theBusinessRoom"));
             
             RoomExit businessExit = myRoom.Navigate("bogus");
             businessExit.Should().BeNull();
@@ -35,7 +35,7 @@ namespace Dungeon.Tests.Unit.Model
         public void NavigateToARoomExitWhenOneKeywordMatches()
         {
             Room myRoom = new Room("myRoom", "hey it is scary business");
-            myRoom.Exits.Add(new RoomExit("business", "theBusinessRoom"));
+            myRoom.AddExit(new RoomExit("business", "theBusinessRoom"));
             
             RoomExit businessExit = myRoom.Navigate("scary business");
             businessExit.Should().NotBeNull();
@@ -46,8 +46,8 @@ namespace Dungeon.Tests.Unit.Model
         public void NavigateToExitWhenKeywordPartiallyMatches()
         {
             Room myRoom = new Room("exploreRoom", "dance or follow the line of torches");
-            myRoom.Exits.Add(new RoomExit("dance", "danceRoom"));
-            myRoom.Exits.Add(new RoomExit("torch", "torchRoom"));
+            myRoom.AddExit(new RoomExit("dance", "danceRoom"));
+            myRoom.AddExit(new RoomExit("torch", "torchRoom"));
             
             RoomExit torchRoomExit = myRoom.Navigate("follow the line of torches");
             torchRoomExit.Should().NotBeNull();

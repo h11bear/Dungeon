@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dungeon.EntityFramework.Migrations
 {
     [DbContext(typeof(DungeonContext))]
-    [Migration("20221130103153_initialCreate")]
-    partial class initialCreate
+    [Migration("20221202102753_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace Dungeon.EntityFramework.Migrations
 
                     b.HasKey("RoomId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Room", (string)null);
                 });
 
             modelBuilder.Entity("Dungeon.Logic.Model.RoomCatalog", b =>
@@ -58,13 +58,16 @@ namespace Dungeon.EntityFramework.Migrations
 
                     b.HasKey("RoomCatalogId");
 
-                    b.ToTable("RoomCatalogs");
+                    b.ToTable("RoomCatalog", (string)null);
                 });
 
             modelBuilder.Entity("Dungeon.Logic.Model.Room", b =>
                 {
                     b.OwnsMany("Dungeon.Logic.Model.RoomExit", "Exits", b1 =>
                         {
+                            b1.Property<int>("RoomId")
+                                .HasColumnType("int");
+
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int");
@@ -74,15 +77,10 @@ namespace Dungeon.EntityFramework.Migrations
                             b1.Property<string>("Keyword")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<int>("RoomId")
-                                .HasColumnType("int");
-
                             b1.Property<string>("RoomName")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("RoomId");
+                            b1.HasKey("RoomId", "Id");
 
                             b1.ToTable("RoomExit");
 

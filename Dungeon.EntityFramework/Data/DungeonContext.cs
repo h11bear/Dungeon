@@ -30,12 +30,15 @@ namespace Dungeon.EntityFramwork.Data
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                // 
-                if (entityType.ClrType.Name != "RoomExit")
+                // owned entity types like RoomExit throw an exception when attempting to configure table name
+                if (!entityType.IsOwned())
                 {
                     modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
                 }
-            }            
+            }
+
+            // modelBuilder.Entity<Room>()
+            //     .HasData(new Room())
         }
     }
 

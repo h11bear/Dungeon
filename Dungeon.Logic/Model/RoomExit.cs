@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Dungeon.Logic.Model
 {
     public class RoomExit
@@ -8,7 +10,12 @@ namespace Dungeon.Logic.Model
             Keyword = keyword;
             RoomName = roomName;
         }
+        
+        [Required]
+        [MaxLength(50)]
         public string Keyword { get; private set; }
+        [Required]
+        [MaxLength(50)]
         public string RoomName { get; private set; }
 
     }

@@ -64,8 +64,7 @@ namespace Dungeon.Tests.Integration.Data
             Room exploreRoom = catalog.Find("exploreRoom");
             exploreRoom.Exits.Should().NotBeEmpty();
 
-            exploreRoom.Exits[0].Keyword.Should().Be("light");
-            exploreRoom.Exits[0].RoomName.Should().Be("glowingLightRoom");
+            exploreRoom.Navigate("light").RoomName.Should().Be("glowingLightRoom");
         }
 
         [Fact]

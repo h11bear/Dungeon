@@ -25,3 +25,11 @@ dotnet ef database update
 
 dotnet ef migrations add RoomCatalogRename
 
+## list and revert migrations
+dotnet ef migrations list
+dotnet ef database update 20221130103153_initialCreate
+
+then you can remove migrations
+dotnet ef migrations remove
+
+

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dungeon.EntityFramework.Migrations
 {
     [DbContext(typeof(DungeonContext))]
-    [Migration("20221130104337_singular")]
-    partial class singular
+    [Migration("20221202103112_types")]
+    partial class types
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +33,12 @@ namespace Dungeon.EntityFramework.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"));
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Narrative")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoomId");
@@ -65,6 +68,9 @@ namespace Dungeon.EntityFramework.Migrations
                 {
                     b.OwnsMany("Dungeon.Logic.Model.RoomExit", "Exits", b1 =>
                         {
+                            b1.Property<int>("RoomId")
+                                .HasColumnType("int");
+
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int");
@@ -72,17 +78,16 @@ namespace Dungeon.EntityFramework.Migrations
                             SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
 
                             b1.Property<string>("Keyword")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<int>("RoomId")
-                                .HasColumnType("int");
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)");
 
                             b1.Property<string>("RoomName")
-                                .HasColumnType("nvarchar(max)");
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)");
 
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("RoomId");
+                            b1.HasKey("RoomId", "Id");
 
                             b1.ToTable("RoomExit");
 

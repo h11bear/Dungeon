@@ -17,7 +17,7 @@ namespace Dungeon.Logic.Data {
             {
                 string roomName = GetRequiredAttribute(roomNode, "name", catalog.Name);
 
-                Room room = new Room(0, GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName));
+                Room room = new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName));
 
                 var exits = roomNode.Element("exits");
 
