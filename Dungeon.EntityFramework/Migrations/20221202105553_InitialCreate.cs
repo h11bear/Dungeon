@@ -16,8 +16,8 @@ namespace Dungeon.EntityFramework.Migrations
                 {
                     RoomId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Narrative = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Narrative = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,8 +44,8 @@ namespace Dungeon.EntityFramework.Migrations
                     RoomId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Keyword = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoomName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Keyword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    RoomName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
