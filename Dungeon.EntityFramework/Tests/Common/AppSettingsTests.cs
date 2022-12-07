@@ -2,7 +2,7 @@ using Xunit;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 
-namespace Dungeon.Infrastructure.Tests;
+namespace Dungeon.EntityFramework.Tests.Common;
 
 public class AppSettingsTests
 {
@@ -17,6 +17,6 @@ public class AppSettingsTests
         
         var configuration = builder.Build();
 
-        configuration.GetValue<string>("ConnectionStrings:DungeonDbConnectionString").Should().Be("Data Source=.\\sqlexpress");
+        configuration.GetValue<string>("ConnectionStrings:DungeonDbConnectionString").Should().Be("Data Source=.\\sqlexpress;Initial Catalog=Dungeon;TrustServerCertificate=True;Trusted_Connection=True");
     }
 }

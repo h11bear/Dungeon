@@ -1,11 +1,11 @@
 
 namespace Dungeon.Logic.Model
 {
-    public class DungeonStory
+    public class DungeonStoryLegacy
     {
         
         private RoomCatalog _roomCatalog;
-        public DungeonStory(RoomCatalog roomCatalog)
+        public DungeonStoryLegacy(RoomCatalog roomCatalog)
         {
             _roomCatalog = roomCatalog;
         }

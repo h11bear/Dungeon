@@ -1,7 +1,7 @@
 <rooms>
     <room name="entrance" headline="Welcome to the Dungeon!" image="entrance.jpg">
         <narrative>
-You find youself in a dark room. You can open the door, explore, or follow the line of torches.
+You find yourself in a dark room. You can open the door, explore, or follow the line of torches.
         </narrative>
         <exits>
             <exit keyword="door" room="rockRoom"/>

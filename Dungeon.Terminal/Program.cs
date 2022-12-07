@@ -31,7 +31,7 @@ namespace Dungeon.Terminal
 
             var roomCatalog = storyXmlRepository.GetCatalog(@"Dungeon.Logic\Story\MainDungeon.xml");
 
-            var dungeonStory = new DungeonStory(roomCatalog);
+            var dungeonStory = new DungeonStoryLegacy(roomCatalog);
             dungeonStory.Begin();
 
             while (true)

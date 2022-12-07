@@ -14,7 +14,7 @@ namespace Dungeon.Tests.Unit.Model
             RoomCatalog catalog = new RoomCatalog("test catalog");
             catalog.AddRoom(new Room("entrance", "my entrance"));
 
-            DungeonStory dungeonStory = new DungeonStory(catalog);
+            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
             dungeonStory.Begin();
             dungeonStory.Narrative.Should().Be("my entrance");
         }
@@ -29,7 +29,7 @@ namespace Dungeon.Tests.Unit.Model
 
             catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
 
-            DungeonStory dungeonStory = new DungeonStory(catalog);
+            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
             dungeonStory.Begin();
             dungeonStory.Navigate("pursue monster");
             dungeonStory.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
@@ -45,7 +45,7 @@ namespace Dungeon.Tests.Unit.Model
 
             catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
 
-            DungeonStory dungeonStory = new DungeonStory(catalog);
+            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
             dungeonStory.Begin();
             Action nav = () => dungeonStory.Navigate("run");
             nav.Should().Throw<NavigationException>()
@@ -62,7 +62,7 @@ namespace Dungeon.Tests.Unit.Model
 
             catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
 
-            DungeonStory dungeonStory = new DungeonStory(catalog);
+            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
             dungeonStory.Begin();
             Action nav = () => dungeonStory.Navigate("pursue monster");
 
@@ -81,7 +81,7 @@ namespace Dungeon.Tests.Unit.Model
 
             catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
 
-            DungeonStory dungeonStory = new DungeonStory(catalog);
+            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
             dungeonStory.Begin();
             dungeonStory.Navigate("pursue");
             dungeonStory.EndOfGame.Should().BeTrue();
@@ -97,7 +97,7 @@ namespace Dungeon.Tests.Unit.Model
 
             catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
 
-            DungeonStory dungeonStory = new DungeonStory(catalog);
+            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
             dungeonStory.Resume("monsterRoom");
             dungeonStory.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
         }

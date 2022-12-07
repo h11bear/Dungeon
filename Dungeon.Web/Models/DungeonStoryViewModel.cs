@@ -5,7 +5,7 @@ namespace Dungeon.Web.Models
 {
     public class DungeonStoryViewModel
     {
-        public DungeonStoryViewModel(DungeonStory story)
+        public DungeonStoryViewModel(DungeonStoryLegacy story)
         {
             var parser = new NarrativeParser();
             Story = story;
@@ -29,7 +29,7 @@ namespace Dungeon.Web.Models
                 return Story.CurrentRoom.Name;
             }
         }
-        public DungeonStory Story { get; }
+        public DungeonStoryLegacy Story { get; }
         public List<NarrativeFragment> StoryFragments { get; }
 
         public bool EndOfGame
