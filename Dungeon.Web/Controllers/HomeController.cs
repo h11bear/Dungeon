@@ -22,19 +22,19 @@ namespace Dungeon.Web.Controllers
 
         public IActionResult Index()
         {
-            DungeonStoryLegacy dungeonStory = GetStory();
+            Story dungeonStory = GetStory();
             dungeonStory.Begin();
             DungeonStoryViewModel viewModel = new DungeonStoryViewModel(dungeonStory);
 
             return View(viewModel);
         }
 
-        private DungeonStoryLegacy GetStory()
+        private Story GetStory()
         {
             //! is the "null forgiving" operator that can be used on strings
             StoryXmlRepository repository = new StoryXmlRepository();
             RoomCatalog roomCatalog = repository.GetCatalog(Path.Combine(_configuration["Dungeon:StoryPath"]!, "MainDungeon.xml"));
-            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(roomCatalog);
+            Story dungeonStory = new Story("main", roomCatalog, roomCatalog.GetEntrance());
             return dungeonStory;
         }
 
@@ -43,7 +43,7 @@ namespace Dungeon.Web.Controllers
         {
             try
             {
-                DungeonStoryLegacy dungeonStory = GetStory();
+                Story dungeonStory = GetStory();
                 dungeonStory.Resume(roomName);
                 dungeonStory.Navigate(keyword);
 

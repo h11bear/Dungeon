@@ -25,6 +25,13 @@ public class Story
     public Room Entrance { get; private set; }
 
     private Room _currentRoom;
+    public Room CurrentRoom
+    {
+        get
+        {
+            return _currentRoom;
+        }
+    }
 
     public string Narrative
     {

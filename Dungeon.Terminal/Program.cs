@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Dungeon.Logic.Data;
 using Dungeon.Logic.Model;
 
@@ -31,7 +32,7 @@ namespace Dungeon.Terminal
 
             var roomCatalog = storyXmlRepository.GetCatalog(@"Dungeon.Logic\Story\MainDungeon.xml");
 
-            var dungeonStory = new DungeonStoryLegacy(roomCatalog);
+            var dungeonStory = new Story("main", roomCatalog, roomCatalog.Rooms.First());
             dungeonStory.Begin();
 
             while (true)

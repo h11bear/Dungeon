@@ -29,7 +29,7 @@ namespace Dungeon.RazorPages.Pages
         public string DatabaseHost {get;}
         public IActionResult OnGet(string roomName, string keyword)
         {
-            DungeonStoryLegacy dungeonStory = GetStory();
+            Story dungeonStory = GetStory();
             if (!string.IsNullOrEmpty(roomName))
             {
                 try
@@ -58,11 +58,11 @@ namespace Dungeon.RazorPages.Pages
             return Page();
         }
 
-        private DungeonStoryLegacy GetStory()
+        private Story GetStory()
         {
             StoryXmlRepository repository = new StoryXmlRepository();
             RoomCatalog roomCatalog = repository.GetCatalog(Path.Combine(_configuration.GetValue<string>("Dungeon:StoryPath"), "MainDungeon.xml"));
-            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(roomCatalog);
+            var dungeonStory = new Story("main", roomCatalog, roomCatalog.GetEntrance());
             return dungeonStory;
         }
 
