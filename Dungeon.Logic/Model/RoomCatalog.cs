@@ -1,41 +1,25 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Dungeon.Logic.Model
 {
     public class RoomCatalog
     {
-        private List<Room> rooms = new List<Room>();
-
-        [Required]
-        [MaxLength(50)]
-        public string Name { get; private set; }
-        public int RoomCatalogId {get; private set;}
-        public RoomCatalog(int roomCatalogId, string name)
+        private RoomCatalog()
         {
-            RoomCatalogId = roomCatalogId;
-            Name = name;
+
+        }
+        public RoomCatalog(IEnumerable<Room> rooms)
+        {
+            this.Rooms = rooms;
         }
 
-        public RoomCatalog(string name)
-        {
-            Name = name;
-        }
-
-        public void AddRoom(Room room) 
-        {
-            rooms.Add(room);
-        }
-
-        public Room GetEntrance()
-        {
-            return rooms[0];
-        }
+        public IEnumerable<Room> Rooms {get; private set;}
 
         public Room Find(string name) 
         {
-            return rooms.Find(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+            return Rooms.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
 
     }

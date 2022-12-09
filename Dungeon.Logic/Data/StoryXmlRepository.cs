@@ -9,35 +9,32 @@ namespace Dungeon.Logic.Data {
     public class StoryXmlRepository {
         public RoomCatalog GetCatalog(string path)
         {
-            RoomCatalog catalog = new RoomCatalog(Path.GetFileNameWithoutExtension(path));
+            List<Room> rooms = new List<Room>();
 
             XElement catalogRoot = XElement.Load(path);
+            string catalogName = Path.GetFileNameWithoutExtension(path);
             IEnumerable<XElement> roomNodes = catalogRoot.Descendants("room");
             foreach(XElement roomNode in roomNodes) 
             {
-                string roomName = GetRequiredAttribute(roomNode, "name", catalog.Name);
+                string roomName = GetRequiredAttribute(roomNode, "name", catalogName);
 
-                Room room = new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName));
-
-                var exits = roomNode.Element("exits");
-
-                if (exits != null)
+                var exitElement = roomNode.Element("exits");
+                List<RoomExit> exits = new List<RoomExit>();
+                if (exitElement != null)
                 {
-                    var exitNodes = exits.Descendants("exit");
+                    var exitNodes = exitElement.Descendants("exit");
 
                     foreach(var exitNode in exitNodes) 
                     {
                         RoomExit roomExit = new RoomExit(GetRequiredAttribute(exitNode, "keyword",  $"{roomName} exits"), GetRequiredAttribute(exitNode, "room", $"{roomName} exits"));
-
-                        room.AddExit(roomExit);
+                        exits.Add(roomExit);
                     }
-
                 }
 
-                catalog.AddRoom(room);
+                rooms.Add(new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName), exits));
             }
 
-            return catalog;
+            return new RoomCatalog(rooms);
         }
 
         private static string GetRequiredContent(XElement node, string name, string customMessage)

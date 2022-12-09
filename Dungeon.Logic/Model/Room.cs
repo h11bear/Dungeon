@@ -9,19 +9,16 @@ namespace Dungeon.Logic.Model
     {
         private Room()
         {
-            
-        }
 
-        public Room(string name, string narrative)
-        {
-            Name = name;
-            Narrative = narrative;
         }
         public Room(string name, string narrative, IEnumerable<RoomExit> exits)
         {
             Name = name;
             Narrative = narrative;
-            _exits.AddRange(exits);
+            if (exits != null)
+            {
+                _exits.AddRange(exits);
+            }
         }
 
         public int RoomId { get; private set; }
@@ -36,11 +33,6 @@ namespace Dungeon.Logic.Model
             {
                 return _exits.Count.Equals(0);
             }
-        }
-
-        public void AddExit(RoomExit roomExit)
-        {
-            _exits.Add(roomExit);
         }
 
         private List<RoomExit> _exits = new List<RoomExit>();

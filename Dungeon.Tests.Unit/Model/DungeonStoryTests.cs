@@ -3,6 +3,8 @@ using Xunit;
 using FluentAssertions;
 using Dungeon.Logic.Model;
 
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Dungeon.Tests.Unit.Model
 {
@@ -11,41 +13,37 @@ namespace Dungeon.Tests.Unit.Model
         [Fact]
         public void BeginTheStoryAtEntrance()
         {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            catalog.AddRoom(new Room("entrance", "my entrance"));
+            var entrance = new Room("entrance", "my entrance", null);
+            var catalog = new RoomCatalog(new Room[] { entrance });
 
-            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
-            dungeonStory.Begin();
-            dungeonStory.Narrative.Should().Be("my entrance");
+            Story story = new Story("test story", catalog, entrance);
+            story.Begin();
+            story.Narrative.Should().Be("my entrance");
         }
 
         [Fact]
         public void NavigateToTheMonsterRoom()
         {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            var entrance = new Room("entrance", "my entrance, pursue the monster?");
-            entrance.AddExit(new RoomExit("pursue", "monsterRoom"));
-            catalog.AddRoom(entrance);
+            var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
+            var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
+            var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
 
-            catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
-
-            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
-            dungeonStory.Begin();
-            dungeonStory.Navigate("pursue monster");
-            dungeonStory.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
+            Story story = new Story("test story", catalog, entrance);
+            story.Begin();
+            story.Navigate("pursue monster");
+            story.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
         }
 
         [Fact]
         public void NavigateKeywordIsNotAnExit()
         {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            var entrance = new Room("entrance", "my entrance, pursue the monster?");
-            entrance.AddExit(new RoomExit("pursue", "monsterRoom"));
-            catalog.AddRoom(entrance);
+            var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
+            var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
+            var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
 
-            catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
-
-            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
+            Story dungeonStory = new Story("test story", catalog, entrance);
             dungeonStory.Begin();
             Action nav = () => dungeonStory.Navigate("run");
             nav.Should().Throw<NavigationException>()
@@ -55,51 +53,59 @@ namespace Dungeon.Tests.Unit.Model
         [Fact]
         public void ExitPointsToARoomThatDoesNotExist()
         {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            var entrance = new Room("entrance", "my entrance, pursue the monster?");
-            entrance.AddExit(new RoomExit("pursue", "monsterRoomBadName"));
-            catalog.AddRoom(entrance);
+            var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoomBadName") };
+            var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
+            var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
 
-            catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
+            var story = new Story("test story", catalog, entrance);
+            story.Begin();
 
-            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
-            dungeonStory.Begin();
-            Action nav = () => dungeonStory.Navigate("pursue monster");
-
+            Action nav = () => story.Navigate("pursue monster");
             nav.Should().Throw<RoomNotFoundException>()
                 .And.Message.Should().Be("Sorry, the programmer made a mistake!  Could not find room monsterRoomBadName!");
-
         }
 
-        [Fact] 
+        [Fact]
         public void GameEndsWhenRoomHasNoExits()
         {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            var entrance = new Room("entrance", "my entrance, pursue the monster?");
-            entrance.AddExit(new RoomExit("pursue", "monsterRoom"));
-            catalog.AddRoom(entrance);
+            var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
+            var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
+            var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
 
-            catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
+            var story = new Story("test story", catalog, entrance);
+            story.Begin();
+            story.Navigate("pursue");
+            story.EndOfGame.Should().BeTrue();
+        }
 
-            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
-            dungeonStory.Begin();
-            dungeonStory.Navigate("pursue");
-            dungeonStory.EndOfGame.Should().BeTrue();
+        [Fact]
+        public void GameEndsWhenRoomHasNullExits()
+        {
+            var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
+            var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
+            var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", null);
+            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
+
+            var story = new Story("test story", catalog, entrance);
+            story.Begin();
+            story.Navigate("pursue");
+            story.EndOfGame.Should().BeTrue();
         }
 
         [Fact]
         public void ResumeGameAtRoom()
         {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            var entrance = new Room("entrance", "my entrance, pursue the monster?");
-            entrance.AddExit(new RoomExit("pursue", "monsterRoomBadName"));
-            catalog.AddRoom(entrance);
+            var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
+            var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
+            var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
 
-            catalog.AddRoom(new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
+            var story = new Story("test story", catalog, entrance);
 
-            DungeonStoryLegacy dungeonStory = new DungeonStoryLegacy(catalog);
-            dungeonStory.Resume("monsterRoom");
-            dungeonStory.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
+            story.Resume("monsterRoom");
+            story.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
         }
     }
 }

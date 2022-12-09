@@ -6,42 +6,33 @@ using Dungeon.Logic.Data;
 using Dungeon.Logic.Model;
 
 
-namespace Dungeon.Tests.Unit.Model
+namespace Dungeon.Tests.Unit.Model;
+public class RoomCatalogTests
 {
-    public class RoomCatalogTests
+
+    [Fact]
+    public void FindRoomInCatalog()
     {
-        [Fact]
-        public void FirstRoomIsTheEntrance()
-        {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            catalog.AddRoom(new Room("testName", "my test narrative"));
-            Room entrance = catalog.GetEntrance();
-            entrance.Should().NotBeNull();
-            entrance.Name.Should().Be("testName");
-        }
+        var rooms = new Room[] {new Room("testName", "my test narrative", null),
+            new Room("otherRoom", "my other narrative", null)
+            };
+        var catalog = new RoomCatalog(rooms);
 
-        [Fact]
-        public void FindRoomInCatalog()
-        {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            catalog.AddRoom(new Room("testName", "my test narrative"));
-            catalog.AddRoom(new Room("otherRoom", "my other narrative"));
-            
-            Room otherRoom = catalog.Find("otherRoom");
-            otherRoom.Should().NotBeNull();
-            otherRoom.Narrative.Should().Be("my other narrative");
-        }
-
-        [Fact]
-        public void DoNotFindRoomInCatalog()
-        {
-            RoomCatalog catalog = new RoomCatalog("test catalog");
-            catalog.AddRoom(new Room("testName", "my test narrative"));
-            catalog.AddRoom(new Room("otherRoom", "my other narrative"));
-            
-            Room otherRoom = catalog.Find("otherRoom1");
-            otherRoom.Should().BeNull();
-        }
-
+        var otherRoom = catalog.Find("otherRoom");
+        otherRoom.Should().NotBeNull();
+        otherRoom.Narrative.Should().Be("my other narrative");
     }
+
+    [Fact]
+    public void DoNotFindRoomInCatalog()
+    {
+        var rooms = new Room[] {new Room("testName", "my test narrative", null),
+            new Room("otherRoom", "my other narrative", null)
+            };
+        var catalog = new RoomCatalog(rooms);
+
+        var otherRoom = catalog.Find("otherRoom1");
+        otherRoom.Should().BeNull();
+    }
+
 }

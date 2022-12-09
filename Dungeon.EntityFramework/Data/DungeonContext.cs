@@ -14,6 +14,11 @@ public class DungeonContext : DbContext
 
     public DbSet<Story>? Stories { get; set; }
 
+    public Room Find(int storyId, string roomName)
+    {
+        return null;
+    }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
@@ -36,12 +41,9 @@ public class DungeonContext : DbContext
                 modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
             }
         }
-
         // https://github.com/dotnet/EntityFramework.Docs/blob/main/samples/core/Querying/RelatedData/BloggingContext.cs
 
         modelBuilder.Entity<Story>().Navigation(s => s.Entrance).AutoInclude();
-        // modelBuilder.Entity<Room>()
-        //     .HasData(new Room())
     }
 }
 

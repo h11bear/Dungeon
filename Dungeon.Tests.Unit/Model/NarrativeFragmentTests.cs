@@ -10,9 +10,9 @@ namespace Dungeon.Tests.Unit.ViewModels
         [Fact]
         public void ParseNarrativeWithExactKeyworkMatches()
         {
-            var entrance = new Room("entrance", "my entrance, pursue the monster?");
-            entrance.AddExit(new RoomExit("pursue", "monsterRoom"));
-            
+            var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
+            var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
+
             NarrativeParser narrativeParser = new NarrativeParser();
 
             List<NarrativeFragment> fragments = narrativeParser.Parse(entrance);
@@ -27,8 +27,8 @@ namespace Dungeon.Tests.Unit.ViewModels
         [Fact]
         public void ParseNarrativeWithNoKeywords()
         {
-             var happyEnding = new Room("happyEnding", "Blue sky and sunny day, yay!");
-            
+            var happyEnding = new Room("happyEnding", "Blue sky and sunny day, yay!", null);
+
             NarrativeParser narrativeParser = new NarrativeParser();
 
             List<NarrativeFragment> fragments = narrativeParser.Parse(happyEnding);
@@ -39,9 +39,9 @@ namespace Dungeon.Tests.Unit.ViewModels
         [Fact]
         public void KeywordEndsSentence()
         {
-            var entrance = new Room("entrance", "my entrance, pursue");
-            entrance.AddExit(new RoomExit("pursue", "monsterRoom"));
-            
+            var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
+            var entrance = new Room("entrance", "my entrance, pursue", exits);
+
             NarrativeParser narrativeParser = new NarrativeParser();
 
             List<NarrativeFragment> fragments = narrativeParser.Parse(entrance);
@@ -55,9 +55,9 @@ namespace Dungeon.Tests.Unit.ViewModels
         [Fact]
         public void KeywordMatchIsExtendedUntilNonAlphaCharacter()
         {
-            var entrance = new Room("entrance", "pick up the torches, food, or box");
-            entrance.AddExit(new RoomExit("torch", "torchRoom"));
-            
+            var exits = new RoomExit[] { new RoomExit("torch", "torchRoom") };
+            var entrance = new Room("entrance", "pick up the torches, food, or box", exits);
+
             NarrativeParser narrativeParser = new NarrativeParser();
 
             List<NarrativeFragment> fragments = narrativeParser.Parse(entrance);
