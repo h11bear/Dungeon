@@ -16,7 +16,6 @@ namespace Dungeon.Tests.Integration.Data
             StoryXmlRepository repo = new StoryXmlRepository();
             RoomCatalog catalog = repo.GetCatalog(@"..\..\..\..\Dungeon.Logic\Story\MainDungeon.xml");
             catalog.Should().NotBeNull();
-            catalog.Name.Should().Be("MainDungeon");
         }
 
         [Fact]
