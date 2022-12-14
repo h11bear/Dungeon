@@ -26,9 +26,8 @@ public class StoryTests
 
         // https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager
 
-        var story = context.Stories.Single(story => story.Name.Equals("main"));
+        var story = context?.Stories?.Single(story => story.Name.Equals("main"));
 
-        story.Entrance.Should().NotBeNull();
-        //story?.Entrance.Narrative.Should().StartWith("You find yourself in a dark room.");
+        story?.Entrance.Should().NotBeNull();
     }
 }

@@ -34,7 +34,7 @@ namespace Dungeon.Logic.Data {
                 rooms.Add(new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName), exits));
             }
 
-            return new RoomCatalog(rooms);
+            return new RoomCatalog(catalogName, rooms);
         }
 
         private static string GetRequiredContent(XElement node, string name, string customMessage)

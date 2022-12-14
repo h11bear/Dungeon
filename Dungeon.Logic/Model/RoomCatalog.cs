@@ -10,10 +10,13 @@ namespace Dungeon.Logic.Model
         {
 
         }
-        public RoomCatalog(IEnumerable<Room> rooms)
+        public RoomCatalog(string name, IEnumerable<Room> rooms)
         {
             this.Rooms = rooms;
         }
+
+        public int RoomCatalogId { get; private set;}
+        public string Name { get; private set;}
 
         public IEnumerable<Room> Rooms {get; private set;}
 

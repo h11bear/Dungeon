@@ -9,10 +9,8 @@ INSERT dbo.Room
 (Name, Narrative)
 VALUES('entrance', 'You find yourself in a dark room. You can open the door, explore, or follow the line of torches.');
 
-GO
 
-DECLARE @EntranceRoomId int =
-	(SELECT MAX(RoomId) from dbo.Room WHERE Name = 'entrance');
+DECLARE @EntranceRoomId int = SCOPE_IDENTITY();
 
 INSERT dbo.RoomExit
 (RoomId, Keyword, RoomName)
@@ -21,8 +19,7 @@ Values
 (@EntranceRoomId, 'explore', 'exploreRoom'),
 (@EntranceRoomId, 'torch', 'torchRoom');
 
-
-
 INSERT dbo.Story(Name, EntranceRoomId)
 Values('main', @EntranceRoomId);
 
+Declare @MainStoryId int = SCOPE_IDENTITY();

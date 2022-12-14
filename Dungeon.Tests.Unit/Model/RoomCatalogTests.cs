@@ -16,7 +16,7 @@ public class RoomCatalogTests
         var rooms = new Room[] {new Room("testName", "my test narrative", null),
             new Room("otherRoom", "my other narrative", null)
             };
-        var catalog = new RoomCatalog(rooms);
+        var catalog = new RoomCatalog("test catalog", rooms);
 
         var otherRoom = catalog.Find("otherRoom");
         otherRoom.Should().NotBeNull();
@@ -29,7 +29,7 @@ public class RoomCatalogTests
         var rooms = new Room[] {new Room("testName", "my test narrative", null),
             new Room("otherRoom", "my other narrative", null)
             };
-        var catalog = new RoomCatalog(rooms);
+        var catalog = new RoomCatalog("test catalog", rooms);
 
         var otherRoom = catalog.Find("otherRoom1");
         otherRoom.Should().BeNull();

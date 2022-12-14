@@ -14,11 +14,6 @@ public class DungeonContext : DbContext
 
     public DbSet<Story>? Stories { get; set; }
 
-    public Room Find(int storyId, string roomName)
-    {
-        return null;
-    }
-
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {

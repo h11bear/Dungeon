@@ -14,7 +14,7 @@ namespace Dungeon.Tests.Unit.Model
         public void BeginTheStoryAtEntrance()
         {
             var entrance = new Room("entrance", "my entrance", null);
-            var catalog = new RoomCatalog(new Room[] { entrance });
+            var catalog = new RoomCatalog("test catalog", new Room[] { entrance });
 
             Story story = new Story("test story", catalog, entrance);
             story.Begin();
@@ -27,7 +27,7 @@ namespace Dungeon.Tests.Unit.Model
             var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
             var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
             var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
-            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
+            var catalog = new RoomCatalog("main catalog", new Room[] { entrance, monsterRoom });
 
             Story story = new Story("test story", catalog, entrance);
             story.Begin();
@@ -41,7 +41,7 @@ namespace Dungeon.Tests.Unit.Model
             var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
             var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
             var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
-            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
+            var catalog = new RoomCatalog("main catalog", new Room[] { entrance, monsterRoom });
 
             Story dungeonStory = new Story("test story", catalog, entrance);
             dungeonStory.Begin();
@@ -56,7 +56,7 @@ namespace Dungeon.Tests.Unit.Model
             var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoomBadName") };
             var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
             var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
-            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
+            var catalog = new RoomCatalog("main catalog", new Room[] { entrance, monsterRoom });
 
             var story = new Story("test story", catalog, entrance);
             story.Begin();
@@ -72,7 +72,7 @@ namespace Dungeon.Tests.Unit.Model
             var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
             var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
             var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
-            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
+            var catalog = new RoomCatalog("main catalog", new Room[] { entrance, monsterRoom });
 
             var story = new Story("test story", catalog, entrance);
             story.Begin();
@@ -86,7 +86,7 @@ namespace Dungeon.Tests.Unit.Model
             var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
             var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
             var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", null);
-            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
+            var catalog = new RoomCatalog("main catalog", new Room[] { entrance, monsterRoom });
 
             var story = new Story("test story", catalog, entrance);
             story.Begin();
@@ -100,7 +100,7 @@ namespace Dungeon.Tests.Unit.Model
             var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
             var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
             var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
-            var catalog = new RoomCatalog(new Room[] { entrance, monsterRoom });
+            var catalog = new RoomCatalog("main catalog", new Room[] { entrance, monsterRoom });
 
             var story = new Story("test story", catalog, entrance);
 
