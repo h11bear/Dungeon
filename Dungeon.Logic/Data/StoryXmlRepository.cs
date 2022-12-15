@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Dungeon.Logic.Data {
     public class StoryXmlRepository {
-        public RoomCatalog GetCatalog(string path)
+        public Story GetStory(string path)
         {
             List<Room> rooms = new List<Room>();
 
@@ -34,7 +34,7 @@ namespace Dungeon.Logic.Data {
                 rooms.Add(new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName), exits));
             }
 
-            return new RoomCatalog(catalogName, rooms);
+            return new Story(catalogName, rooms, rooms[0]);
         }
 
         private static string GetRequiredContent(XElement node, string name, string customMessage)

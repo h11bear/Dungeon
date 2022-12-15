@@ -1,9 +1,21 @@
 use Dungeon
 GO
 
+
 DELETE FROM dbo.Story;
+DELETE FROM dbo.RoomCatalog;
 DELETE from dbo.RoomExit;
 DELETE FROM dbo.Room;
+
+INSERT dbo.Story(Name)
+Values('main');
+
+Declare @MainStoryId int = SCOPE_IDENTITY();
+
+INSERT dbo.RoomCatalog(Name) 
+values('main catalog');
+
+Declare @CatalogId int = SCOPE_IDENTITY();
 
 INSERT dbo.Room
 (Name, Narrative)
@@ -12,6 +24,8 @@ VALUES('entrance', 'You find yourself in a dark room. You can open the door, exp
 
 DECLARE @EntranceRoomId int = SCOPE_IDENTITY();
 
+
+
 INSERT dbo.RoomExit
 (RoomId, Keyword, RoomName)
 Values
@@ -19,7 +33,4 @@ Values
 (@EntranceRoomId, 'explore', 'exploreRoom'),
 (@EntranceRoomId, 'torch', 'torchRoom');
 
-INSERT dbo.Story(Name, EntranceRoomId)
-Values('main', @EntranceRoomId);
 
-Declare @MainStoryId int = SCOPE_IDENTITY();

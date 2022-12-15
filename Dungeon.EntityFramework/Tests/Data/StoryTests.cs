@@ -28,6 +28,6 @@ public class StoryTests
 
         var story = context?.Stories?.Single(story => story.Name.Equals("main"));
 
-        story?.Entrance.Should().NotBeNull();
+        story?.Should().NotBeNull();
     }
 }

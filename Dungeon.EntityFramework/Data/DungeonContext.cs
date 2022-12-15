@@ -38,7 +38,6 @@ public class DungeonContext : DbContext
         }
         // https://github.com/dotnet/EntityFramework.Docs/blob/main/samples/core/Querying/RelatedData/BloggingContext.cs
 
-        modelBuilder.Entity<Story>().Navigation(s => s.Entrance).AutoInclude();
     }
 }
 

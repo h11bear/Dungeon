@@ -14,15 +14,15 @@ namespace Dungeon.Tests.Integration.Data
         public void ReadsCatalogOfRooms()
         {
             StoryXmlRepository repo = new StoryXmlRepository();
-            RoomCatalog catalog = repo.GetCatalog(@"..\..\..\..\Dungeon.Logic\Story\MainDungeon.xml");
-            catalog.Should().NotBeNull();
+            Story story = repo.GetStory(@"..\..\..\..\Dungeon.Logic\Story\MainDungeon.xml");
+            story.Should().NotBeNull();
         }
 
         [Fact]
         public void ThrowsAnExceptionWhenXmlDoesNotExist()
         {
             StoryXmlRepository repo = new StoryXmlRepository();
-            repo.Invoking(r => r.GetCatalog(@"..\..\..\..\Dungeon.Logic\Story\BadName.xml"))
+            repo.Invoking(r => r.GetStory(@"..\..\..\..\Dungeon.Logic\Story\BadName.xml"))
                 .Should().Throw<FileNotFoundException>();
         }
 
@@ -30,17 +30,16 @@ namespace Dungeon.Tests.Integration.Data
         public void FindRoomInCatalogAfterLoad()
         {
             StoryXmlRepository repo = new StoryXmlRepository();
-            RoomCatalog catalog = repo.GetCatalog(@"..\..\..\..\Dungeon.Logic\Story\MainDungeon.xml");
-            Room doorRoom = catalog.Find("rockRoom");
-            doorRoom.Should().NotBeNull();
-            doorRoom.Narrative.Should().Contain("You open the door");
+            Story story = repo.GetStory(@"..\..\..\..\Dungeon.Logic\Story\MainDungeon.xml");
+            story.Navigate("rockRoom");
+            story.Narrative.Should().Contain("You open the door");
         }
 
         [Fact]
         public void NarrativeIsMissing()
         {
             StoryXmlRepository repo = new StoryXmlRepository();
-            Action getRooms = () => repo.GetCatalog(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\NarrativeBroken.xml");
+            Action getRooms = () => repo.GetStory(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\NarrativeBroken.xml");
             getRooms.Should().Throw<StoryDataException>()
                 .And.Message.Should().Contain("narrative is missing for the entrance");
         }
@@ -49,7 +48,7 @@ namespace Dungeon.Tests.Integration.Data
         public void RoomNameIsMissing()
         {
             StoryXmlRepository repo = new StoryXmlRepository();
-            Action getRooms = () => repo.GetCatalog(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomNameMissing.xml");
+            Action getRooms = () => repo.GetStory(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomNameMissing.xml");
             getRooms.Should().Throw<StoryDataException>()
                 .And.Message.Should().Contain("name attribute is missing for");
         }
@@ -58,19 +57,21 @@ namespace Dungeon.Tests.Integration.Data
         public void LoadRoomExits()
         {
             StoryXmlRepository repo = new StoryXmlRepository();
-            RoomCatalog catalog = repo.GetCatalog(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithExits.xml");
+            Story story = repo.GetStory(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithExits.xml");
 
-            Room exploreRoom = catalog.Find("exploreRoom");
-            exploreRoom.Exits.Should().NotBeEmpty();
+            story.Navigate("exploreRoom");
+            story.CurrentRoom.Exits.Should().NotBeEmpty();
 
-            exploreRoom.Navigate("light").RoomName.Should().Be("glowingLightRoom");
+            story.Navigate("light");
+            
+            story.CurrentRoom.Name.Should().Be("glowingLightRoom");
         }
 
         [Fact]
         public void LoadRoomWithBrokenExits() 
         {
             StoryXmlRepository repo = new StoryXmlRepository();
-                        Action getRooms = () => repo.GetCatalog(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithBrokenExits.xml");
+                        Action getRooms = () => repo.GetStory(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithBrokenExits.xml");
 
             getRooms.Should().Throw<StoryDataException>()
                 .And.Message.Should().Contain("keyword attribute is missing for the exploreRoom exits");

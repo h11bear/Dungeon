@@ -4,6 +4,7 @@ using Dungeon.EntityFramework.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dungeon.EntityFramework.Migrations
 {
     [DbContext(typeof(DungeonContext))]
-    partial class DungeonContextModelSnapshot : ModelSnapshot
+    [Migration("20221214105233_RoomCatalog2")]
+    partial class RoomCatalog2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,14 +42,30 @@ namespace Dungeon.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StoryId")
+                    b.Property<int?>("RoomCatalogId")
                         .HasColumnType("int");
 
                     b.HasKey("RoomId");
 
-                    b.HasIndex("StoryId");
+                    b.HasIndex("RoomCatalogId");
 
                     b.ToTable("Room", (string)null);
+                });
+
+            modelBuilder.Entity("Dungeon.Logic.Model.RoomCatalog", b =>
+                {
+                    b.Property<int>("RoomCatalogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomCatalogId"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoomCatalogId");
+
+                    b.ToTable("RoomCatalog", (string)null);
                 });
 
             modelBuilder.Entity("Dungeon.Logic.Model.Story", b =>
@@ -65,18 +84,23 @@ namespace Dungeon.EntityFramework.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("RoomCatalogId")
+                        .HasColumnType("int");
+
                     b.HasKey("StoryId");
 
                     b.HasIndex("EntranceRoomId");
+
+                    b.HasIndex("RoomCatalogId");
 
                     b.ToTable("Story", (string)null);
                 });
 
             modelBuilder.Entity("Dungeon.Logic.Model.Room", b =>
                 {
-                    b.HasOne("Dungeon.Logic.Model.Story", null)
+                    b.HasOne("Dungeon.Logic.Model.RoomCatalog", null)
                         .WithMany("Rooms")
-                        .HasForeignKey("StoryId");
+                        .HasForeignKey("RoomCatalogId");
 
                     b.OwnsMany("Dungeon.Logic.Model.RoomExit", "Exits", b1 =>
                         {
@@ -116,10 +140,16 @@ namespace Dungeon.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("EntranceRoomId");
 
+                    b.HasOne("Dungeon.Logic.Model.RoomCatalog", "RoomCatalog")
+                        .WithMany()
+                        .HasForeignKey("RoomCatalogId");
+
                     b.Navigation("Entrance");
+
+                    b.Navigation("RoomCatalog");
                 });
 
-            modelBuilder.Entity("Dungeon.Logic.Model.Story", b =>
+            modelBuilder.Entity("Dungeon.Logic.Model.RoomCatalog", b =>
                 {
                     b.Navigation("Rooms");
                 });

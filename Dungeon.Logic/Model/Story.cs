@@ -1,5 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Linq;
 namespace Dungeon.Logic.Model;
 
 public class Story
@@ -9,10 +11,10 @@ public class Story
 
     }
 
-    public Story(string name, RoomCatalog roomCatalog, Room entrance)
+    public Story(string name, IEnumerable<Room> rooms, Room entrance)
     {
         this.Name = name;
-        this.RoomCatalog = roomCatalog;
+        this._rooms.AddRange(rooms);
         this.Entrance = entrance;
         this._currentRoom = entrance;
     }
@@ -21,9 +23,6 @@ public class Story
     [Required]
     [MaxLength(100)]
     public string Name { get; private set; }
-    public RoomCatalog RoomCatalog { get; private set; }
-    public Room Entrance { get; private set; }
-
     private Room _currentRoom;
     public Room CurrentRoom
     {
@@ -57,6 +56,10 @@ public class Story
         }
     }
 
+    private List<Room> _rooms = new List<Room>();
+    public IEnumerable<Room> Rooms => _rooms;
+
+    public Room Entrance { get; private set; }
 
     public void Begin()
     {
@@ -83,7 +86,7 @@ public class Story
 
     private void EnterRoom(string roomName)
     {
-        _currentRoom = RoomCatalog.Find(roomName);
+        _currentRoom = Find(roomName);
 
         if (_currentRoom == null)
         {
@@ -91,6 +94,10 @@ public class Story
         }
     }
 
+    private Room Find(string name) 
+    {
+        return Rooms.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+    }
 
 
 }

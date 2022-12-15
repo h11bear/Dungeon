@@ -33,9 +33,7 @@ namespace Dungeon.Web.Controllers
         {
             //! is the "null forgiving" operator that can be used on strings
             StoryXmlRepository repository = new StoryXmlRepository();
-            RoomCatalog roomCatalog = repository.GetCatalog(Path.Combine(_configuration["Dungeon:StoryPath"]!, "MainDungeon.xml"));
-            Story dungeonStory = new Story("main", roomCatalog, roomCatalog.GetEntrance());
-            return dungeonStory;
+            return repository.GetStory(Path.Combine(_configuration["Dungeon:StoryPath"]!, "MainDungeon.xml"));
         }
 
         [Route("navigate/{roomName}/{keyword}")]
