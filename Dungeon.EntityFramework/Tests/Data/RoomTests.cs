@@ -38,4 +38,5 @@ public class RoomTests
 
         entrance?.Exits.Count().Should().Be(3);
     }
+
 }

@@ -3,7 +3,14 @@ using Dungeon.Logic.Model;
 using Microsoft.Extensions.Configuration;
 
 namespace Dungeon.EntityFramework.Data;
-public class DungeonContext : DbContext
+
+public interface IDungeonContext
+{
+    DbSet<Room>? Rooms { get; set; }
+    DbSet<Story>? Stories { get; set; }
+}
+
+public class DungeonContext : DbContext, IDungeonContext
 {
     protected IConfiguration Configuration { get; }
     public DungeonContext(IConfiguration configuration)
@@ -22,6 +29,7 @@ public class DungeonContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new StoryEntityConfiguration());
         modelBuilder.ApplyConfiguration(new RoomEntityConfiguration());
 
         // https://stackoverflow.com/questions/46497733/using-singular-table-names-with-ef-core-2

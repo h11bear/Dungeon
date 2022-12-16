@@ -5,7 +5,7 @@
 namespace Dungeon.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class RoomCatalog4 : Migration
+    public partial class create1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

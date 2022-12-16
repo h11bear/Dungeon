@@ -30,4 +30,16 @@ public class StoryTests
 
         story?.Should().NotBeNull();
     }
+
+    [Fact]
+    public void MainDungeonHasAnEntrance()
+    {
+        var context = new DungeonContext(_configuration);
+
+        // https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager
+
+        var story = context?.Stories?.Single(story => story.Name.Equals("main"));
+
+        story?.Entrance.Should().NotBeNull();
+    }
 }

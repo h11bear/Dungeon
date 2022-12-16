@@ -6,17 +6,20 @@ using Microsoft.Extensions.Logging;
 using Dungeon.Web.Models;
 using Dungeon.Logic.Data;
 using Dungeon.Logic.Model;
+using Dungeon.EntityFramework.Data;
 
 namespace Dungeon.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDungeonContext _dungeonContext;
         private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IDungeonContext dungeonContext)
         {
             _logger = logger;
+            _dungeonContext = dungeonContext;
             _configuration = configuration;
         }
 
@@ -31,9 +34,10 @@ namespace Dungeon.Web.Controllers
 
         private Story GetStory()
         {
-            //! is the "null forgiving" operator that can be used on strings
-            StoryXmlRepository repository = new StoryXmlRepository();
-            return repository.GetStory(Path.Combine(_configuration["Dungeon:StoryPath"]!, "MainDungeon.xml"));
+            return _dungeonContext.Stories?.Single(story => story.Name.Equals("main"));
+
+            // StoryXmlRepository repository = new StoryXmlRepository();
+            // return repository.GetStory(Path.Combine(_configuration["Dungeon:StoryPath"]!, "MainDungeon.xml"));
         }
 
         [Route("navigate/{roomName}/{keyword}")]

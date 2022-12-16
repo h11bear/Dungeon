@@ -34,10 +34,11 @@ dotnet new console -o Dungeon.Terminal
 dotnet sln add Dungeon.Terminal/Dungeon.Terminal.csproj  
 dotnet add Dungeon.Terminal/Dungeon.Terminal.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
 
-## Create MVC web project with reference to Dungeon.Logic
+## Create MVC web project with reference to Dungeon.Logic and entity framework project
 dotnet new mvc --output Dungeon.Web  
 dotnet sln add Dungeon.Web/Dungeon.Web.csproj
 dotnet add Dungeon.Web/Dungeon.Web.csproj reference Dungeon.Logic/Dungeon.Logic.csproj
+dotnet add Dungeon.Web/Dungeon.Web.csproj reference Dungeon.EntityFramework/Dungeon.EntityFramework.csproj
 
 ## Create RazorPages web app project with authentication
 dotnet new webapp --auth Individual --output Dungeon.RazorPages
