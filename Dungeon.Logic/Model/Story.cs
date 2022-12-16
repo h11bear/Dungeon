@@ -76,7 +76,8 @@ public class Story
         RoomExit roomExit = _currentRoom.Navigate(keyword);
         if (roomExit == null)
         {
-            throw new NavigationException($"I do not understand what you mean by {keyword}, please read the story more carefully!");
+            string availableExits = string.Join(", ", _currentRoom.Exits.Select(exit => exit.RoomName));
+            throw new NavigationException($"I do not understand what you mean by {keyword}, please read the story more carefully! Available exits: {availableExits}");
         }
         else
         {

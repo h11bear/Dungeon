@@ -44,7 +44,7 @@ namespace Dungeon.Tests.Unit.Model
             dungeonStory.Begin();
             Action nav = () => dungeonStory.Navigate("run");
             nav.Should().Throw<NavigationException>()
-                .And.Message.Should().Be("I do not understand what you mean by run, please read the story more carefully!");
+                .And.Message.Should().StartWith("I do not understand what you mean by run, please read the story more carefully!");
         }
 
         [Fact]

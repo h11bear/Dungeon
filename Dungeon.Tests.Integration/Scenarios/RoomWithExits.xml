@@ -7,7 +7,7 @@ You find youself in a dark room. You can open the door, explore, or follow the l
             <exit keyword="door" room="rockRoom"/>
         </exits>
     </room>
-    <room name="exploreRoom">
+    <room name="rockRoom">
         <narrative>
 You look around the room and see a faint light glowing around the corner. There is also what looks like a bottomless pit across the room. What do you inspect first?
         </narrative>

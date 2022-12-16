@@ -27,15 +27,6 @@ namespace Dungeon.Tests.Integration.Data
         }
 
         [Fact]
-        public void FindRoomInCatalogAfterLoad()
-        {
-            StoryXmlRepository repo = new StoryXmlRepository();
-            Story story = repo.GetStory(@"..\..\..\..\Dungeon.Logic\Story\MainDungeon.xml");
-            story.Navigate("rockRoom");
-            story.Narrative.Should().Contain("You open the door");
-        }
-
-        [Fact]
         public void NarrativeIsMissing()
         {
             StoryXmlRepository repo = new StoryXmlRepository();
@@ -59,12 +50,8 @@ namespace Dungeon.Tests.Integration.Data
             StoryXmlRepository repo = new StoryXmlRepository();
             Story story = repo.GetStory(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithExits.xml");
 
-            story.Navigate("exploreRoom");
-            story.CurrentRoom.Exits.Should().NotBeEmpty();
-
-            story.Navigate("light");
-            
-            story.CurrentRoom.Name.Should().Be("glowingLightRoom");
+            story.Navigate("door");
+            story.CurrentRoom.Name.Should().Be("rockRoom");
         }
 
         [Fact]
