@@ -30,7 +30,7 @@ namespace Dungeon.Terminal
 
             StoryXmlRepository storyXmlRepository = new StoryXmlRepository();
 
-            var dungeonStory = storyXmlRepository.GetStory(@"Dungeon.Logic\Story\MainDungeon.xml");
+            var dungeonStory = storyXmlRepository.GetStory(@"..\Dungeon.Logic\Story\MainDungeon.xml");
             dungeonStory.Begin();
 
             while (true)
