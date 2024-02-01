@@ -31,6 +31,19 @@ Values
 (@EntranceRoomId, 'explore', 'exploreRoom'),
 (@EntranceRoomId, 'torch', 'torchRoom');
 
+DECLARE @InnerRoomId int;
+
+INSERT dbo.Room
+(Name, Narrative, StoryId)
+VALUES('exploreRoom', 'You look around the room and see a faint light glowing around the corner. There is also what looks like a bottomless pit across the room. What do you inspect first?', @MainStoryId);
+
+SET @InnerRoomId = SCOPE_IDENTITY();
+
+INSERT dbo.RoomExit
+(RoomId, Keyword, RoomName)
+Values
+(@InnerRoomId, 'light', 'glowingLightRoom'),
+(@InnerRoomId, 'pit', 'pitRoom');
 
 exec sp_MSforeachtable @command1="print '?'", @command2="ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
 

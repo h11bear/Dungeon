@@ -41,6 +41,7 @@ public class DungeonContext : DbContext, IDungeonContext
             // owned entity types like RoomExit throw an exception when attempting to configure table name
             if (!entityType.IsOwned())
             {
+                //ToTable maps the plural collection name to the single database table name
                 modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
             }
         }

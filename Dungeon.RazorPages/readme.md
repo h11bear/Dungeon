@@ -42,3 +42,13 @@ dotnet add package Microsoft.Extensions.Logging.AzureAppServices
 ## access Blob storage
 dotnet add package Azure.Storage.Blobs
 dotnet add package Azure.Identity
+
+## upgrade nuget packages
+dotnet add package Azure.Identity
+dotnet add package Azure.Storage.Blobs
+dotnet add package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet add package Microsoft.AspNetCore.Identity.UI
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Microsoft.Extensions.Logging.AzureAppServices
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL

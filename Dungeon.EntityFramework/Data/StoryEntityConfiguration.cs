@@ -8,6 +8,7 @@ public class StoryEntityConfiguration : IEntityTypeConfiguration<Story>
     // https://learn.microsoft.com/en-us/ef/core/modeling/owned-entities
     public void Configure(EntityTypeBuilder<Story> builder)
     {
+        //eager loads the entrance property on the story object
         builder.Navigation(story => story.Entrance).AutoInclude();
     }
 }

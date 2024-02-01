@@ -32,4 +32,13 @@ dotnet ef database update 20221130103153_initialCreate
 then you can remove migrations
 dotnet ef migrations remove
 
-
+## upgrade nuget packages
+dotnet add package coverlet.collector
+dotnet add package FluentAssertions
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.Extensions.Configuration
+dotnet add package Microsoft.Extensions.Hosting
+dotnet add package Microsoft.NET.Test.Sdk
+dotnet add package xunit
+dotnet add package xunit.runner.visualstudio
