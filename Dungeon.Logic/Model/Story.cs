@@ -2,21 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Dungeon.Logic.Data;
 namespace Dungeon.Logic.Model;
 
 public class Story
 {
+    private IStoryRepository _storyRepository;
     private Story()
     {
 
     }
 
-    public Story(string name, IEnumerable<Room> rooms, Room entrance)
+    public Story(string name, Room entrance, IStoryRepository storyRepository)
     {
-        this.Name = name;
-        this._rooms.AddRange(rooms);
-        this.Entrance = entrance;
-        this._currentRoom = entrance;
+        _storyRepository = storyRepository;
+        Name = name;
+        //this._rooms.AddRange(rooms);
+        Entrance = entrance;
+        _currentRoom = entrance;
     }
 
     public int StoryId { get; private set; }
@@ -56,8 +59,8 @@ public class Story
         }
     }
 
-    private List<Room> _rooms = new List<Room>();
-    public IEnumerable<Room> Rooms => _rooms;
+    //private List<Room> _rooms = new List<Room>();
+    //public IEnumerable<Room> Rooms => _rooms;
 
     public Room Entrance { get; private set; }
 
@@ -95,9 +98,9 @@ public class Story
         }
     }
 
-    private Room Find(string name) 
+    private Room Find(string roomName) 
     {
-        return Rooms.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+        return _storyRepository.FindRoom(this, roomName);
     }
 
 

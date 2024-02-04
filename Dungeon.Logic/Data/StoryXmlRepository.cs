@@ -6,13 +6,19 @@ using System.Collections.Generic;
 
 
 namespace Dungeon.Logic.Data {
-    public class StoryXmlRepository {
-        public Story GetStory(string path)
-        {
-            List<Room> rooms = new List<Room>();
+    public class StoryXmlRepository: IStoryRepository {
 
-            XElement catalogRoot = XElement.Load(path);
-            string catalogName = Path.GetFileNameWithoutExtension(path);
+        private List<Room> _rooms = new List<Room>();
+        private string catalogName;
+        private XElement catalogRoot;
+
+        public StoryXmlRepository(string xmlPath){
+            catalogRoot = XElement.Load(xmlPath);
+            catalogName = Path.GetFileNameWithoutExtension(xmlPath);
+        }
+        
+        public Story GetStory(string storyName) {
+
             IEnumerable<XElement> roomNodes = catalogRoot.Descendants("room");
             foreach(XElement roomNode in roomNodes) 
             {
@@ -31,10 +37,15 @@ namespace Dungeon.Logic.Data {
                     }
                 }
 
-                rooms.Add(new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName), exits));
+                _rooms.Add(new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName), exits));
             }
 
-            return new Story(catalogName, rooms, rooms[0]);
+            return new Story(storyName, _rooms[0], this);
+        }
+
+        public Room FindRoom(Story story, string roomName)
+        {
+            return _rooms.Find(r => r.Name.Equals(roomName, StringComparison.CurrentCultureIgnoreCase));
         }
 
         private static string GetRequiredContent(XElement node, string name, string customMessage)
@@ -58,5 +69,6 @@ namespace Dungeon.Logic.Data {
 
             return attribute.Value;
         }
+
     }
 }
