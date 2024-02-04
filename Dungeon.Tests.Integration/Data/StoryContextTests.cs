@@ -3,6 +3,8 @@ using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Dungeon.EntityFramework.Data;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Linq;
 
 namespace Dungeon.EntityFramework.Tests.Data;
 
@@ -42,4 +44,15 @@ public class StoryTests
 
         story?.Entrance.Should().NotBeNull();
     }
+
+    [Fact]
+    public void GetExitsForTheDungeonEntrance()
+    {
+        var context = new DungeonContext(_configuration);
+
+        var entrance = context.Rooms?.Single(room => room.Name.Equals("entrance"));
+
+        entrance?.Exits.Count().Should().Be(3);
+    }
+
 }

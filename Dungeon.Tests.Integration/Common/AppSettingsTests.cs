@@ -1,6 +1,7 @@
 using Xunit;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Dungeon.EntityFramework.Tests.Common;
 
