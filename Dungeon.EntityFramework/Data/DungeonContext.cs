@@ -6,9 +6,12 @@ namespace Dungeon.EntityFramework.Data;
 
 public interface IDungeonContext
 {
-    DbSet<Room>? Rooms { get; set; }
-    DbSet<Story>? Stories { get; set; }
+    DbSet<Room> Rooms { get; set; }
+    DbSet<Story> Stories { get; set; }
 }
+
+//learn entity framework core
+//https://medium.com/@darshana-edirisinghe/entity-framework-performance-improvement-section-1-different-loading-mechanisms-in-entity-3e3ce2affee6#:~:text=To%20disable%20lazy%20loading%20in,Here's%20an%20example.&text=In%20this%20example%2C%20the%20Customer,will%20not%20be%20lazy%2Dloaded.
 
 public class DungeonContext : DbContext, IDungeonContext
 {
@@ -16,10 +19,13 @@ public class DungeonContext : DbContext, IDungeonContext
     public DungeonContext(IConfiguration configuration)
     {
         this.Configuration = configuration;
+        
+        //turn off lazy loading for all entities
+        this.ChangeTracker.LazyLoadingEnabled = false;
     }
-    public DbSet<Room>? Rooms { get; set; }
+    public DbSet<Room> Rooms { get; set; } = null!;  // null forgiving operator
 
-    public DbSet<Story>? Stories { get; set; }
+    public DbSet<Story> Stories { get; set; } = null!;
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)

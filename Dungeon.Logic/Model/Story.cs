@@ -7,15 +7,13 @@ namespace Dungeon.Logic.Model;
 
 public class Story
 {
-    private IStoryRepository _storyRepository;
     private Story()
     {
 
     }
 
-    public Story(string name, Room entrance, IStoryRepository storyRepository)
+    public Story(string name, Room entrance)
     {
-        _storyRepository = storyRepository;
         Name = name;
         //this._rooms.AddRange(rooms);
         Entrance = entrance;
@@ -69,39 +67,23 @@ public class Story
         _currentRoom = Entrance;
     }
 
-    public void Resume(string roomName)
+    public void Resume(Room startingRoom)
     {
-        EnterRoom(roomName);
+        _currentRoom = startingRoom;
     }
 
     public void Navigate(string keyword)
     {
-        RoomExit roomExit = _currentRoom.Navigate(keyword);
-        if (roomExit == null)
+        Room exitRoom = _currentRoom.Navigate(keyword);
+        if (exitRoom == null)
         {
-            string availableExits = string.Join(", ", _currentRoom.Exits.Select(exit => exit.RoomName));
+            string availableExits = string.Join(", ", _currentRoom.Exits.Select(exit => exit.Keyword));
             throw new NavigationException($"I do not understand what you mean by {keyword}, please read the story more carefully! Available exits: {availableExits}");
         }
         else
         {
-            EnterRoom(roomExit.RoomName);
+            _currentRoom = exitRoom;
         }
     }
-
-    private void EnterRoom(string roomName)
-    {
-        _currentRoom = Find(roomName);
-
-        if (_currentRoom == null)
-        {
-            throw new RoomNotFoundException($"Sorry, the programmer made a mistake!  Could not find room {roomName}!");
-        }
-    }
-
-    private Room Find(string roomName) 
-    {
-        return _storyRepository.FindRoom(this, roomName);
-    }
-
 
 }

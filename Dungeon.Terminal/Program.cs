@@ -28,9 +28,9 @@ namespace Dungeon.Terminal
             Console.WriteLine();
             Console.WriteLine("Welcome " + characterName);
 
-            StoryXmlRepository storyXmlRepository = new StoryXmlRepository();
+            StoryXmlRepository storyXmlRepository = new StoryXmlRepository(@"..\Dungeon.Logic\Story\MainDungeon.xml");
 
-            var dungeonStory = storyXmlRepository.GetEntrance(@"..\Dungeon.Logic\Story\MainDungeon.xml");
+            var dungeonStory = storyXmlRepository.GetStory("main");
             dungeonStory.Begin();
 
             while (true)

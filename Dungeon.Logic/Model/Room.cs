@@ -11,14 +11,10 @@ namespace Dungeon.Logic.Model
         {
 
         }
-        public Room(string name, string narrative, IEnumerable<RoomExit> exits)
+        public Room(string name, string narrative)
         {
             Name = name;
             Narrative = narrative;
-            if (exits != null)
-            {
-                _exits.AddRange(exits);
-            }
         }
 
         public int RoomId { get; private set; }
@@ -27,18 +23,18 @@ namespace Dungeon.Logic.Model
         [Required]
         [MaxLength(50)]
         public string Name { get; private set; }
-        public bool EndOfGame
-        {
-            get
-            {
-                return _exits.Count.Equals(0);
-            }
-        }
+        public bool EndOfGame => _exits.Count.Equals(0);
 
         private List<RoomExit> _exits = new List<RoomExit>();
-        public IEnumerable<RoomExit> Exits => _exits?.ToList();
+        public IEnumerable<RoomExit> Exits => _exits.ToList();
 
-        public RoomExit Navigate(string phrase)
+        public Room WithExit(string exitphrase, Room exitRoom) 
+        {
+            _exits.Add(new RoomExit(exitphrase, exitRoom));
+            return this;
+        }
+
+        public Room Navigate(string phrase)
         {
             string[] words = phrase.Split(' ');
 
@@ -48,7 +44,7 @@ namespace Dungeon.Logic.Model
                 {
                     if (word.Contains(roomExit.Keyword, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        return roomExit;
+                        return roomExit.ExitRoom;
                     }
 
                 }

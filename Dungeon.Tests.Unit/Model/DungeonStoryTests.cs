@@ -11,19 +11,12 @@ using Moq;
 namespace Dungeon.Tests.Unit.Model;
 public class DungeonStoryTests
 {
-    private Mock<IStoryRepository> _mockRepo;
-    public DungeonStoryTests()
-    {
-        _mockRepo = new Mock<IStoryRepository>();
-
-    }
-
     [Fact]
     public void BeginTheStoryAtEntrance()
     {
-        var entrance = new Room("entrance", "my entrance", null);
+        var entrance = new Room("entrance", "my entrance");
 
-        Story story = new("test story", entrance, _mockRepo.Object);
+        Story story = new("test story", entrance);
         story.Begin();
         story.Narrative.Should().Be("my entrance");
     }
@@ -31,12 +24,10 @@ public class DungeonStoryTests
     [Fact]
     public void NavigateToTheMonsterRoom()
     {
-        var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
-        var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
-        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+        var entrance = new Room("entrance", "my entrance, pursue the monster?");
+        entrance.WithExit("pursue", new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
 
-        Story story = new Story("test story", entrance, _mockRepo.Object);
-        _mockRepo.Setup(mr => mr.FindRoom(story, "monsterRoom")).Returns(monsterRoom);
+        Story story = new Story("test story", entrance);
 
         story.Begin();
         story.Navigate("pursue monster");
@@ -46,11 +37,10 @@ public class DungeonStoryTests
     [Fact]
     public void NavigateKeywordIsNotAnExit()
     {
-        var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
-        var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
-        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+        var entrance = new Room("entrance", "my entrance, pursue the monster?");
+        entrance.WithExit("pursue", new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
 
-        Story story = new Story("test story", entrance, _mockRepo.Object);
+        Story story = new Story("test story", entrance);
 
         story.Begin();
         Action nav = () => story.Navigate("run");
@@ -59,44 +49,12 @@ public class DungeonStoryTests
     }
 
     [Fact]
-    public void ExitPointsToARoomThatDoesNotExist()
-    {
-        var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoomBadName") };
-        var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
-        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
-
-        var story = new Story("test story", entrance, _mockRepo.Object);
-        story.Begin();
-
-        Action nav = () => story.Navigate("pursue monster");
-        nav.Should().Throw<RoomNotFoundException>()
-            .And.Message.Should().Be("Sorry, the programmer made a mistake!  Could not find room monsterRoomBadName!");
-    }
-
-    [Fact]
     public void GameEndsWhenRoomHasNoExits()
     {
-        var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
-        var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
-        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+        var entrance = new Room("entrance", "my entrance, pursue the monster?");
+        entrance.WithExit("pursue", new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
 
-        var story = new Story("test story", entrance, _mockRepo.Object);
-        _mockRepo.Setup(mr => mr.FindRoom(story, "monsterRoom")).Returns(monsterRoom);
-
-        story.Begin();
-        story.Navigate("pursue");
-        story.EndOfGame.Should().BeTrue();
-    }
-
-    [Fact]
-    public void GameEndsWhenRoomHasNullExits()
-    {
-        var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
-        var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
-        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", null);
-
-        var story = new Story("test story", entrance, _mockRepo.Object);
-        _mockRepo.Setup(mr => mr.FindRoom(story, "monsterRoom")).Returns(monsterRoom);
+        var story = new Story("test story", entrance);
 
         story.Begin();
         story.Navigate("pursue");
@@ -106,15 +64,12 @@ public class DungeonStoryTests
     [Fact]
     public void ResumeGameAtRoom()
     {
-        var exits = new RoomExit[] { new RoomExit("pursue", "monsterRoom") };
-        var entrance = new Room("entrance", "my entrance, pursue the monster?", exits);
-        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?", new RoomExit[] { });
+        var entrance = new Room("entrance", "my entrance, pursue the monster?");
+        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?");
 
-        var story = new Story("test story", entrance, _mockRepo.Object);
-        _mockRepo.Setup(mr => mr.FindRoom(story, "monsterRoom")).Returns(monsterRoom);
-
-
-        story.Resume("monsterRoom");
+        var story = new Story("test story", entrance);
+        story.Resume(monsterRoom);
+        
         story.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
     }
 }

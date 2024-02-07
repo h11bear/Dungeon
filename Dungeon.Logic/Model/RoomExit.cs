@@ -5,18 +5,17 @@ namespace Dungeon.Logic.Model
     public class RoomExit
     {
 
-        public RoomExit(string keyword, string roomName)
+        public RoomExit(string keyword, Room exitRoom)
         {
             Keyword = keyword;
-            RoomName = roomName;
+            ExitRoom = exitRoom;
         }
         
         [Required]
         [MaxLength(50)]
         public string Keyword { get; private set; }
         [Required]
-        [MaxLength(50)]
-        public string RoomName { get; private set; }
+        public Room ExitRoom { get; private set; }
 
     }
 }

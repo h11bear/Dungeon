@@ -9,6 +9,6 @@ public class StoryEntityConfiguration : IEntityTypeConfiguration<Story>
     public void Configure(EntityTypeBuilder<Story> builder)
     {
         //eager loads the entrance property on the story object
-        builder.Navigation(story => story.Entrance).AutoInclude();
+        //builder.Navigation(story => story.Entrance).AutoInclude();
     }
 }

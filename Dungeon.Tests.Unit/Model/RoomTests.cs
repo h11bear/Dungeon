@@ -9,17 +9,19 @@ public class RoomTests
     [Fact]
     public void NavigateToARoomExit()
     {
-        var myRoom = new Room("myRoom", "scary business", new RoomExit[] { new RoomExit("business", "theBusinessRoom") });
+        var myRoom = new Room("myRoom", "scary business");
+        myRoom.WithExit("business", new Room("theBusinessRoom", "serious business in this room"));
 
         var businessExit = myRoom.Navigate("business");
         businessExit.Should().NotBeNull();
-        businessExit.RoomName.Should().Be("theBusinessRoom");
+        businessExit.Name.Should().Be("theBusinessRoom");
     }
 
     [Fact]
     public void NavigateToARoomThatDoesNotExist()
     {
-        var myRoom = new Room("myRoom", "scary business", new RoomExit[] { new RoomExit("business", "theBusinessRoom") });
+        var myRoom = new Room("myRoom", "scary business");
+        myRoom.WithExit("business", new Room("theBusinessRoom", "serious business in this room"));
 
         var businessExit = myRoom.Navigate("bogus");
         businessExit.Should().BeNull();
@@ -28,25 +30,23 @@ public class RoomTests
     [Fact]
     public void NavigateToARoomExitWhenOneKeywordMatches()
     {
-        var myRoom = new Room("myRoom", "hey it is scary business", new RoomExit[] { new RoomExit("business", "theBusinessRoom") });
-        RoomExit businessExit = myRoom.Navigate("scary business");
+        var myRoom = new Room("myRoom", "hey it is scary business");
+        myRoom.WithExit("business", new Room("theBusinessRoom", "serious business in this room"));
+        var businessExit = myRoom.Navigate("scary business");
         businessExit.Should().NotBeNull();
-        businessExit.RoomName.Should().Be("theBusinessRoom");
+        businessExit.Name.Should().Be("theBusinessRoom");
     }
 
     [Fact]
     public void NavigateToExitWhenKeywordPartiallyMatches()
     {
-        Room myRoom = new Room("exploreRoom", "dance or follow the line of torches",
-            new RoomExit[] {
-                new RoomExit("dance", "danceRoom"),
-                new RoomExit("torch", "torchRoom")
-            }
-        );
+        var myRoom = new Room("exploreRoom", "dance or follow the line of torches");
+        myRoom.WithExit("dance", new Room("danceRoot", "some dancing narrative"));
+        myRoom.WithExit("torch", new Room("torchRoom", "torch this place"));
 
-        RoomExit torchRoomExit = myRoom.Navigate("follow the line of torches");
+        var torchRoomExit = myRoom.Navigate("follow the line of torches");
         torchRoomExit.Should().NotBeNull();
-        torchRoomExit.RoomName.Should().Be("torchRoom");
+        torchRoomExit.Name.Should().Be("torchRoom");
     }
 
 }

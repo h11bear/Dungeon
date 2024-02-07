@@ -24,13 +24,14 @@ https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-us
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 
+## create a new migration
 dotnet ef migrations add RoomCatalogRename
 
 ## list and revert migrations
 dotnet ef migrations list
 dotnet ef database update 20221130103153_initialCreate
 
-then you can remove migrations
+## then you can remove migrations
 dotnet ef migrations remove
 
 ## upgrade nuget packages
@@ -43,3 +44,4 @@ dotnet add package Microsoft.Extensions.Hosting
 dotnet add package Microsoft.NET.Test.Sdk
 dotnet add package xunit
 dotnet add package xunit.runner.visualstudio
+

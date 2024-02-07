@@ -60,8 +60,8 @@ namespace Dungeon.RazorPages.Pages
 
         private Story GetStory()
         {
-            StoryXmlRepository repository = new StoryXmlRepository();
-            var dungeonStory = repository.GetEntrance(Path.Combine(_configuration.GetValue<string>("Dungeon:StoryPath"), "MainDungeon.xml"));
+            StoryXmlRepository repository = new StoryXmlRepository(Path.Combine(_configuration.GetValue<string>("Dungeon:StoryPath"), "MainDungeon.xml"));
+            var dungeonStory = repository.GetStory("main");
             return dungeonStory;
         }
 
