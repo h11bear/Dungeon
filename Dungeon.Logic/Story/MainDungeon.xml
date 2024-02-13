@@ -23,7 +23,12 @@ You look around the room and see a faint light glowing around the corner. There 
 What a disappointment, nothing is going on in the glowing light room!
         </narrative>
     </room>
-    <room name="rockRoom">
+  <room name="pitRoom">
+    <narrative>
+      Inspecting the bottomless pit was a bad idea, you have a long time to consider this bad decision as you fall forever.
+    </narrative>
+  </room>
+  <room name="rockRoom">
         <narrative>
 You open the door and find a rock blocking your path. Do you move the rock? Or squeeze by it and continue on the path?
         </narrative>

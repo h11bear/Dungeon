@@ -15,14 +15,22 @@ public interface IDungeonContext
 
 public class DungeonContext : DbContext, IDungeonContext
 {
-    protected IConfiguration Configuration { get; }
+    protected IConfiguration Configuration { get; } = null!;
+    private string _connectionString;
     public DungeonContext(IConfiguration configuration)
     {
         this.Configuration = configuration;
         
         //turn off lazy loading for all entities
         this.ChangeTracker.LazyLoadingEnabled = false;
+        _connectionString = configuration.GetConnectionString("DungeonDbConnectionString");
     }
+
+    public DungeonContext(string connectionString) 
+    {
+        _connectionString = connectionString;
+    }
+
     public DbSet<Room> Rooms { get; set; } = null!;  // null forgiving operator
 
     public DbSet<Story> Stories { get; set; } = null!;
@@ -30,7 +38,7 @@ public class DungeonContext : DbContext, IDungeonContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseSqlServer(Configuration.GetConnectionString("DungeonDbConnectionString"));
+        options.UseSqlServer(_connectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

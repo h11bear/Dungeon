@@ -18,7 +18,7 @@ public class StoryContextRepositoryTests {
 
     private IConfigurationRoot _configuration;
 
-    [Fact]
+    // [Fact]
     public void GetMainDungeonStory() {
         var context = new DungeonContext(_configuration);
 

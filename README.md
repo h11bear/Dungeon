@@ -95,6 +95,9 @@ https://docs.microsoft.com/en-us/aspnet/core/migration/31-to-50?view=aspnetcore-
 ## To update NuGet packages versions run dotnet add again
 dotnet add package <packagename>
 
+## Clear NuGet cache
+Nuget cache can get quite large over time, check the \users\user\AppData\Local\NuGet folder periodically
+
 ## To update all packages
 https://stackoverflow.com/questions/41080749/how-do-i-update-all-nuget-packages-at-once-with-the-dotnet-cli
 

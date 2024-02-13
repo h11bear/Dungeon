@@ -25,11 +25,11 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 
 ## create a new migration
-dotnet ef migrations add RoomCatalogRename
+dotnet ef migrations add Room
 
 ## list and revert migrations
 dotnet ef migrations list
-dotnet ef database update 20221130103153_initialCreate
+dotnet ef database update 20221216103217_InitialCreate
 
 ## then you can remove migrations
 dotnet ef migrations remove
@@ -45,3 +45,14 @@ dotnet add package Microsoft.NET.Test.Sdk
 dotnet add package xunit
 dotnet add package xunit.runner.visualstudio
 
+## to start over
+https://stackoverflow.com/questions/11679385/reset-entity-framework-migrations
+
+In Entity Framework Core.
+Remove all files from the migrations folder.
+
+Type in console
+
+dotnet ef database drop -f -v
+dotnet ef migrations add Initial
+dotnet ef database update

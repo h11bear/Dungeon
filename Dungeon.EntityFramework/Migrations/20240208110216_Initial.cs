@@ -5,7 +5,7 @@
 namespace Dungeon.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,8 +17,7 @@ namespace Dungeon.EntityFramework.Migrations
                     RoomId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Narrative = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    StoryId = table.Column<int>(type: "int", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,18 +28,17 @@ namespace Dungeon.EntityFramework.Migrations
                 name: "RoomExit",
                 columns: table => new
                 {
-                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    ExitRoomRoomId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Keyword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    RoomName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Keyword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoomExit", x => new { x.RoomId, x.Id });
+                    table.PrimaryKey("PK_RoomExit", x => new { x.ExitRoomRoomId, x.Id });
                     table.ForeignKey(
-                        name: "FK_RoomExit_Room_RoomId",
-                        column: x => x.RoomId,
+                        name: "FK_RoomExit_Room_ExitRoomRoomId",
+                        column: x => x.ExitRoomRoomId,
                         principalTable: "Room",
                         principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);
@@ -66,30 +64,14 @@ namespace Dungeon.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Room_StoryId",
-                table: "Room",
-                column: "StoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Story_EntranceRoomId",
                 table: "Story",
                 column: "EntranceRoomId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Room_Story_StoryId",
-                table: "Room",
-                column: "StoryId",
-                principalTable: "Story",
-                principalColumn: "StoryId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Room_Story_StoryId",
-                table: "Room");
-
             migrationBuilder.DropTable(
                 name: "RoomExit");
 

@@ -42,7 +42,6 @@ namespace Dungeon.Logic.Data
                 _rooms.Add(currentRoom);
 
                 var exitElement = roomNode.Element("exits");
-                //List<RoomExit> exits = new List<RoomExit>();
                 if (exitElement != null)
                 {
                     var exitNodes = exitElement.Descendants("exit");
@@ -52,7 +51,6 @@ namespace Dungeon.Logic.Data
                         exitConfigurations.Add(new ExitConfiguration(currentRoom,
                             GetRequiredAttribute(exitNode, "keyword", $"{roomName} exits"),
                             GetRequiredAttribute(exitNode, "room", $"{roomName} exits")));
-                        //RoomExit roomExit = new RoomExit(, GetRequiredAttribute(exitNode, "room", $"{roomName} exits"));
                     }
                 }
 
@@ -60,7 +58,15 @@ namespace Dungeon.Logic.Data
 
             foreach (ExitConfiguration exitConfiguration in exitConfigurations)
             {
-                exitConfiguration.SourceRoom.WithExit(exitConfiguration.Keyword, _rooms.Single(r => r.Name == exitConfiguration.Keyword));
+                Room exitRoom = _rooms.SingleOrDefault(r => r.Name == exitConfiguration.TargetRoomName);
+                if (exitRoom == null)
+                {
+                    throw new StoryDataException($"{exitConfiguration.SourceRoom.Name} has an exit keyword '{exitConfiguration.Keyword}' that points to a room '{exitConfiguration.TargetRoomName}' that does not exist!");
+                } 
+                else
+                {
+                    exitConfiguration.SourceRoom.WithExit(exitConfiguration.Keyword, exitRoom);
+                }
             }
 
             return new Story(storyName, _rooms[0]);

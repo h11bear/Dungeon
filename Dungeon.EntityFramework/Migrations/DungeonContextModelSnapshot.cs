@@ -17,7 +17,7 @@ namespace Dungeon.EntityFramework.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -39,12 +39,7 @@ namespace Dungeon.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StoryId")
-                        .HasColumnType("int");
-
                     b.HasKey("RoomId");
-
-                    b.HasIndex("StoryId");
 
                     b.ToTable("Room", (string)null);
                 });
@@ -74,13 +69,9 @@ namespace Dungeon.EntityFramework.Migrations
 
             modelBuilder.Entity("Dungeon.Logic.Model.Room", b =>
                 {
-                    b.HasOne("Dungeon.Logic.Model.Story", null)
-                        .WithMany("Rooms")
-                        .HasForeignKey("StoryId");
-
                     b.OwnsMany("Dungeon.Logic.Model.RoomExit", "Exits", b1 =>
                         {
-                            b1.Property<int>("RoomId")
+                            b1.Property<int>("ExitRoomRoomId")
                                 .HasColumnType("int");
 
                             b1.Property<int>("Id")
@@ -94,17 +85,14 @@ namespace Dungeon.EntityFramework.Migrations
                                 .HasMaxLength(50)
                                 .HasColumnType("nvarchar(50)");
 
-                            b1.Property<string>("RoomName")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
-
-                            b1.HasKey("RoomId", "Id");
+                            b1.HasKey("ExitRoomRoomId", "Id");
 
                             b1.ToTable("RoomExit");
 
-                            b1.WithOwner()
-                                .HasForeignKey("RoomId");
+                            b1.WithOwner("ExitRoom")
+                                .HasForeignKey("ExitRoomRoomId");
+
+                            b1.Navigation("ExitRoom");
                         });
 
                     b.Navigation("Exits");
@@ -117,11 +105,6 @@ namespace Dungeon.EntityFramework.Migrations
                         .HasForeignKey("EntranceRoomId");
 
                     b.Navigation("Entrance");
-                });
-
-            modelBuilder.Entity("Dungeon.Logic.Model.Story", b =>
-                {
-                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

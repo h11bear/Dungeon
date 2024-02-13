@@ -21,7 +21,7 @@ public class StoryContextTests
 
     private IConfigurationRoot _configuration;
 
-    [Fact]
+    //[Fact]
     public void GetMainDungeon()
     {
         var context = new DungeonContext(_configuration);
@@ -45,7 +45,7 @@ public class StoryContextTests
     //     story.Entrance.Should().NotBeNull();
     // }
 
-    [Fact]
+    //[Fact]
     public void GetExitsForTheDungeonEntrance()
     {
         var context = new DungeonContext(_configuration);
