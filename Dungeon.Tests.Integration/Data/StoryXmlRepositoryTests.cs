@@ -30,7 +30,7 @@ public class StoryXmlRepositoryTests
         initRepo.Should().Throw<FileNotFoundException>();
     }
 
-    //[Fact]
+    [Fact]
     public void FindInnerRoomInRepo()
     {
         StoryXmlRepository repo = new StoryXmlRepository(@"..\..\..\..\Dungeon.Tests.Integration\Scenarios\RoomWithExits.xml");

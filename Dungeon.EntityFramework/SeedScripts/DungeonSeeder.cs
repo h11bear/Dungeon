@@ -42,6 +42,28 @@ public class DungeonSeeder : IDisposable
             Room fightElephantRoom = new("fightElephantRoom", "You charge torwards the elephant with your sword still in hand. The elephant sucks you up with its trunk before you are able to stab it. You die.");
             Room runAwayRoom = new("runAwayRoom", "You turn around and try to climb down the ladder as fast as you can. It begins to rock and you fall off. The elephant tries to come down the ladder but it breaks off and it crashes into cave wall opening a small crack outside.  You crawl through and escape the safety, whew!");
 
+
+            _dungeonContext.Rooms.AddRange([
+                entranceRoom,
+                exploreRoom,
+                glowingLightRoom,
+                pitRoom,
+                rockRoom,
+                moveRockRoom,
+                monsterDoorRoom,
+                fightChoiceRoom,
+                eatToDeathRoom,
+                magicWandRoom,
+                swordRoom,
+                elephantRoom,
+                babySnakeRoom,
+                fightElephantRoom,
+                runAwayRoom
+            ]);
+
+            _dungeonContext.Stories.Add(new Story("main", entranceRoom));
+            _dungeonContext.SaveChanges();
+
             entranceRoom.WithExit("explore", exploreRoom).WithExit("follow", torchRoom).WithExit("door", moveRockRoom);
             exploreRoom.WithExit("light", glowingLightRoom).WithExit("pit", pitRoom);
             rockRoom.WithExit("move", moveRockRoom).WithExit("squeeze", monsterDoorRoom);
@@ -49,16 +71,7 @@ public class DungeonSeeder : IDisposable
             fightChoiceRoom.WithExit("wand", magicWandRoom).WithExit("sword", swordRoom);
             swordRoom.WithExit("ladder", elephantRoom).WithExit("explore", babySnakeRoom);
             elephantRoom.WithExit("fight", fightElephantRoom).WithExit("ladder", runAwayRoom);
-            _dungeonContext.Rooms.AddRange([
-                entranceRoom,
-                exploreRoom,
-                glowingLightRoom,
-                pitRoom,
-                rockRoom,
-                moveRockRoom
-            ]);
 
-            _dungeonContext.Stories.Add(new Story("main", entranceRoom));
 
             _dungeonContext.SaveChanges();
         }

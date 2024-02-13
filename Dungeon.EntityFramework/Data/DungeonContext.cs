@@ -19,14 +19,26 @@ public class DungeonContext : DbContext, IDungeonContext
     private string _connectionString;
     public DungeonContext(IConfiguration configuration)
     {
+        if (configuration is null)
+        {
+            throw new ArgumentNullException(nameof(configuration));
+        }
+
+        string? dbConnectionString = configuration.GetConnectionString("DungeonDbConnectionString");
+        if (dbConnectionString == null)
+        {
+            throw new InvalidOperationException("DungeonDbConnectionString is not configured");
+        }
+        _connectionString = dbConnectionString;
+
+
         this.Configuration = configuration;
-        
+
         //turn off lazy loading for all entities
         this.ChangeTracker.LazyLoadingEnabled = false;
-        _connectionString = configuration.GetConnectionString("DungeonDbConnectionString");
     }
 
-    public DungeonContext(string connectionString) 
+    public DungeonContext(string connectionString)
     {
         _connectionString = connectionString;
     }
