@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Dungeon.Logic.Data;
 
 namespace Dungeon.Logic.Model
 {
@@ -11,10 +12,11 @@ namespace Dungeon.Logic.Model
         {
 
         }
-        public Room(string name, string narrative)
+        public Room(string name, string narrative, int roomId = 0)
         {
             Name = name;
             Narrative = narrative;
+            RoomId = roomId;
         }
 
         public int RoomId { get; private set; }
@@ -30,11 +32,11 @@ namespace Dungeon.Logic.Model
 
         public Room WithExit(string exitphrase, Room exitRoom) 
         {
-            _exits.Add(new RoomExit(exitphrase, exitRoom));
+            _exits.Add(new RoomExit(exitphrase, exitRoom.RoomId));
             return this;
         }
 
-        public Room Navigate(string phrase)
+        public Room Navigate(IStoryRepository repo, string phrase)
         {
             string[] words = phrase.Split(' ');
 
@@ -44,9 +46,8 @@ namespace Dungeon.Logic.Model
                 {
                     if (word.Contains(roomExit.Keyword, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        return roomExit.ExitRoom;
+                        return repo.Navigate(roomExit.NavigateRoomId);
                     }
-
                 }
             }
 

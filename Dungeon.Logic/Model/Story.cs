@@ -72,9 +72,9 @@ public class Story
         _currentRoom = startingRoom;
     }
 
-    public void Navigate(string keyword)
+    public void Navigate(IStoryRepository repo, string keyword)
     {
-        Room exitRoom = _currentRoom.Navigate(keyword);
+        Room exitRoom = _currentRoom.Navigate(repo, keyword);
         if (exitRoom == null)
         {
             string availableExits = string.Join(", ", _currentRoom.Exits.Select(exit => exit.Keyword));

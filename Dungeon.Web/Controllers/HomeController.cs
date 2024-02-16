@@ -15,12 +15,15 @@ namespace Dungeon.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IDungeonContext _dungeonContext;
         private readonly IConfiguration _configuration;
+        private IStoryRepository _storyRepo;
 
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IDungeonContext dungeonContext)
         {
             _logger = logger;
             _dungeonContext = dungeonContext;
             _configuration = configuration;
+            //TODO: fix the dependency injects when you get basic EF operations working!
+            _storyRepo = new StoryContextRepository((DungeonContext)dungeonContext);
         }
 
         public IActionResult Index()
@@ -46,8 +49,9 @@ namespace Dungeon.Web.Controllers
             try
             {
                 Story dungeonStory = GetStory();
-                dungeonStory.Resume(roomName);
-                dungeonStory.Navigate(keyword);
+                Room resumeRoom = _dungeonContext.Rooms.Single(r => r.Name == roomName);
+                //dungeonStory.Resume(resumeRoom);
+                dungeonStory.Navigate(_storyRepo, keyword);
 
                 DungeonStoryViewModel viewModel = new DungeonStoryViewModel(dungeonStory);
 

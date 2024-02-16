@@ -15,8 +15,9 @@ public interface IDungeonContext
 
 public class DungeonContext : DbContext, IDungeonContext
 {
-    protected IConfiguration Configuration { get; } = null!;
+    private IConfiguration _configuration { get; }
     private string _connectionString;
+
     public DungeonContext(IConfiguration configuration)
     {
         if (configuration is null)
@@ -31,17 +32,9 @@ public class DungeonContext : DbContext, IDungeonContext
         }
         _connectionString = dbConnectionString;
 
-
-        this.Configuration = configuration;
-
-        //turn off lazy loading for all entities
-        this.ChangeTracker.LazyLoadingEnabled = false;
+        _configuration = configuration;
     }
 
-    public DungeonContext(string connectionString)
-    {
-        _connectionString = connectionString;
-    }
 
     public DbSet<Room> Rooms { get; set; } = null!;  // null forgiving operator
 
@@ -55,6 +48,7 @@ public class DungeonContext : DbContext, IDungeonContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //turn off lazy loading for all entities
         modelBuilder.ApplyConfiguration(new StoryEntityConfiguration());
         modelBuilder.ApplyConfiguration(new RoomEntityConfiguration());
 
@@ -67,12 +61,13 @@ public class DungeonContext : DbContext, IDungeonContext
             // owned entity types like RoomExit throw an exception when attempting to configure table name
             if (!entityType.IsOwned())
             {
-                //ToTable maps the plural collection name to the single database table name
+                //ToTable maps the plural collection name to the singular database table name
                 modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
             }
         }
-        // https://github.com/dotnet/EntityFramework.Docs/blob/main/samples/core/Querying/RelatedData/BloggingContext.cs
-
+        
+        //TODO: investigate where lazy loading is applied and if this is necessary, cannot disable it here, throws exception
+        //ChangeTracker.LazyLoadingEnabled = false;
     }
 }
 

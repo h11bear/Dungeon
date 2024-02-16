@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Dungeon.EntityFramework.SeedScripts;
 using Dungeon.Logic.Data;
 using Dungeon.Logic.Model;
+using Microsoft.Extensions.Configuration;
 
 namespace Dungeon.Terminal
 {
@@ -15,15 +17,13 @@ namespace Dungeon.Terminal
 
             if (args.Length >= 0 && args[0] == "seed")
             {
-                if (args.Length > 1)
-                {
-                    using DungeonSeeder seeder = new(args[1]);
-                    seeder.SeedDefaultDungeon();
-                }
-                else
-                {
-                    Console.Error.WriteLine("Database service is required for second argument");
-                }
+                var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false);
+
+                var configuration = builder.Build();
+                using DungeonSeeder seeder = new(configuration);
+                seeder.SeedDefaultDungeon();
             }
             else
             {
@@ -67,7 +67,7 @@ namespace Dungeon.Terminal
 
                     try
                     {
-                        dungeonStory.Navigate(choice);
+                        dungeonStory.Navigate(storyXmlRepository, choice);
                     }
                     catch (NavigationException navEx)
                     {

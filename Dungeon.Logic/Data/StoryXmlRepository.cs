@@ -15,7 +15,7 @@ namespace Dungeon.Logic.Data
         private string catalogName;
         private XElement catalogRoot;
 
-
+        int nextRoomId = 0;
         private class ExitConfiguration(Room sourceRoom, string keyword, string targetRoomName)
         {
             public Room SourceRoom => sourceRoom;
@@ -37,8 +37,10 @@ namespace Dungeon.Logic.Data
             IEnumerable<XElement> roomNodes = catalogRoot.Descendants("room");
             foreach (XElement roomNode in roomNodes)
             {
+                nextRoomId++;
+
                 string roomName = GetRequiredAttribute(roomNode, "name", catalogName);
-                Room currentRoom = new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName));
+                Room currentRoom = new Room(GetRequiredAttribute(roomNode, "name", roomName), GetRequiredContent(roomNode, "narrative", roomName), nextRoomId);
                 _rooms.Add(currentRoom);
 
                 var exitElement = roomNode.Element("exits");
@@ -99,5 +101,9 @@ namespace Dungeon.Logic.Data
             return attribute.Value;
         }
 
+        public Room Navigate(int roomId)
+        {
+            return _rooms.Single(r => r.RoomId == roomId);
+        }
     }
 }

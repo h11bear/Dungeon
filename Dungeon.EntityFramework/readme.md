@@ -56,3 +56,9 @@ Type in console
 dotnet ef database drop -f -v
 dotnet ef migrations add Initial
 dotnet ef database update
+
+## drop database to start over method 2
+dotnet ef database drop
+then remove migrations one at a time until they are all gone, then add initial migration and update
+dotnet ef migrations remove
+

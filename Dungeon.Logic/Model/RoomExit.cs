@@ -19,16 +19,18 @@ public class RoomExit
 
     }
 
-    public RoomExit(string keyword, Room exitRoom)
+    public RoomExit(string keyword, int navigateRoomId)
     {
         Keyword = keyword;
-        ExitRoom = exitRoom;
+        NavigateRoomId = navigateRoomId;
     }
+
+    // public int RoomExitId { get; private set; }
 
     [Required]
     [MaxLength(50)]
     public string Keyword { get; private set; }
     [Required]
-    public Room ExitRoom { get; private set; }
+    public int NavigateRoomId { get; private set; }
 
 }

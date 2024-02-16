@@ -5,7 +5,7 @@
 namespace Dungeon.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,17 +28,18 @@ namespace Dungeon.EntityFramework.Migrations
                 name: "RoomExit",
                 columns: table => new
                 {
-                    ExitRoomRoomId = table.Column<int>(type: "int", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Keyword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Keyword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    NavigateRoomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoomExit", x => new { x.ExitRoomRoomId, x.Id });
+                    table.PrimaryKey("PK_RoomExit", x => new { x.RoomId, x.Id });
                     table.ForeignKey(
-                        name: "FK_RoomExit_Room_ExitRoomRoomId",
-                        column: x => x.ExitRoomRoomId,
+                        name: "FK_RoomExit_Room_RoomId",
+                        column: x => x.RoomId,
                         principalTable: "Room",
                         principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);

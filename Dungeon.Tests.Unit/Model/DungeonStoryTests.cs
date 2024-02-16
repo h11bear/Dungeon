@@ -11,6 +11,12 @@ using Moq;
 namespace Dungeon.Tests.Unit.Model;
 public class DungeonStoryTests
 {
+    Mock<IStoryRepository> _mockRepo;
+    public DungeonStoryTests()
+    {
+        _mockRepo = new();
+    }
+
     [Fact]
     public void BeginTheStoryAtEntrance()
     {
@@ -25,12 +31,15 @@ public class DungeonStoryTests
     public void NavigateToTheMonsterRoom()
     {
         var entrance = new Room("entrance", "my entrance, pursue the monster?");
-        entrance.WithExit("pursue", new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
+        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?");
+        entrance.WithExit("pursue", monsterRoom);
+
+        _mockRepo.Setup(mr => mr.Navigate(It.IsAny<int>())).Returns(monsterRoom);
 
         Story story = new Story("test story", entrance);
 
         story.Begin();
-        story.Navigate("pursue monster");
+        story.Navigate(_mockRepo.Object, "pursue monster");
         story.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
     }
 
@@ -43,7 +52,7 @@ public class DungeonStoryTests
         Story story = new Story("test story", entrance);
 
         story.Begin();
-        Action nav = () => story.Navigate("run");
+        Action nav = () => story.Navigate(_mockRepo.Object, "run");
         nav.Should().Throw<NavigationException>()
             .And.Message.Should().StartWith("I do not understand what you mean by run, please read the story more carefully!");
     }
@@ -51,13 +60,17 @@ public class DungeonStoryTests
     [Fact]
     public void GameEndsWhenRoomHasNoExits()
     {
+        
+        var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?");
         var entrance = new Room("entrance", "my entrance, pursue the monster?");
-        entrance.WithExit("pursue", new Room("monsterRoom", "a scary monster is in front of you, run or fight?"));
+        entrance.WithExit("pursue", monsterRoom);
+
+        _mockRepo.Setup(mr => mr.Navigate(It.IsAny<int>())).Returns(monsterRoom);
 
         var story = new Story("test story", entrance);
 
         story.Begin();
-        story.Navigate("pursue");
+        story.Navigate(_mockRepo.Object, "pursue");
         story.EndOfGame.Should().BeTrue();
     }
 

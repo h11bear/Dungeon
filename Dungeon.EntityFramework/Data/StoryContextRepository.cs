@@ -15,4 +15,16 @@ public class StoryContextRepository(DungeonContext context) : IStoryRepository
     {
         return context.Stories.Single(story => story.Name == name);
     }
+
+    public Room Navigate(int roomId)
+    {
+        Room? targetRoom = context.Rooms.Find(roomId);
+        
+        if (targetRoom == null)
+        {
+            throw new NullReferenceException($"{roomId} not found, unable to navigate!");
+        }
+        
+        return targetRoom;
+    }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dungeon.EntityFramework.Migrations
 {
     [DbContext(typeof(DungeonContext))]
-    [Migration("20240208110216_Initial")]
-    partial class Initial
+    [Migration("20240216105906_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,7 @@ namespace Dungeon.EntityFramework.Migrations
                 {
                     b.OwnsMany("Dungeon.Logic.Model.RoomExit", "Exits", b1 =>
                         {
-                            b1.Property<int>("ExitRoomRoomId")
+                            b1.Property<int>("RoomId")
                                 .HasColumnType("int");
 
                             b1.Property<int>("Id")
@@ -88,14 +88,15 @@ namespace Dungeon.EntityFramework.Migrations
                                 .HasMaxLength(50)
                                 .HasColumnType("nvarchar(50)");
 
-                            b1.HasKey("ExitRoomRoomId", "Id");
+                            b1.Property<int>("NavigateRoomId")
+                                .HasColumnType("int");
+
+                            b1.HasKey("RoomId", "Id");
 
                             b1.ToTable("RoomExit");
 
-                            b1.WithOwner("ExitRoom")
-                                .HasForeignKey("ExitRoomRoomId");
-
-                            b1.Navigation("ExitRoom");
+                            b1.WithOwner()
+                                .HasForeignKey("RoomId");
                         });
 
                     b.Navigation("Exits");

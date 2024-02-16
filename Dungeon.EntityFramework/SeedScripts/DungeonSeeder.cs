@@ -1,24 +1,18 @@
 using Dungeon.EntityFramework.Data;
 using Dungeon.Logic.Model;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace Dungeon.EntityFramework.SeedScripts;
 
 public class DungeonSeeder : IDisposable
 {
 
-    public DungeonSeeder(string databaseServer)
+    public DungeonSeeder(IConfiguration configuration)
     {
-        SqlConnectionStringBuilder cb = new();
-        cb.IntegratedSecurity = true;
-        cb.DataSource = databaseServer;
-        cb.InitialCatalog = "Dungeon";
-        cb.TrustServerCertificate = true;
-
-        _dungeonContext = new DungeonContext(cb.ConnectionString);
-
-
+        _dungeonContext = new DungeonContext(configuration);
     }
+
     private DungeonContext _dungeonContext;
 
     public void SeedDefaultDungeon()
@@ -46,6 +40,7 @@ public class DungeonSeeder : IDisposable
             _dungeonContext.Rooms.AddRange([
                 entranceRoom,
                 exploreRoom,
+                torchRoom,
                 glowingLightRoom,
                 pitRoom,
                 rockRoom,
@@ -63,6 +58,8 @@ public class DungeonSeeder : IDisposable
 
             _dungeonContext.Stories.Add(new Story("main", entranceRoom));
             _dungeonContext.SaveChanges();
+
+            //you need to save room entities before linking exits, otherwise owned exit entities won't have the room's NavigateRoomId
 
             entranceRoom.WithExit("explore", exploreRoom).WithExit("follow", torchRoom).WithExit("door", moveRockRoom);
             exploreRoom.WithExit("light", glowingLightRoom).WithExit("pit", pitRoom);
