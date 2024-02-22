@@ -1,4 +1,4 @@
-﻿@page "{roomName?}/{keyword?}"
+﻿@page "{roomId?}/{keyword?}"
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -12,7 +12,7 @@
         {
             if (storyFragment.IsLink)
             {
-                <text><a href="/@dungeonStory.RoomName/@storyFragment.Text">@storyFragment.Text</a></text>
+                <text><a href="/@dungeonStory.CurrentRoomId/@storyFragment.Text">@storyFragment.Text</a></text>
             }
             else
             {

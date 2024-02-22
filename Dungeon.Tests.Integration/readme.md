@@ -6,8 +6,7 @@ dotnet add package xunit.runner.visualstudio
 dotnet add package coverlet.collector
 
 
-## add reference to entity framework
-
+## add reference to entity framework project
 dotnet add reference ..\Dungeon.EntityFramework\Dungeon.EntityFramework.csproj
 
 

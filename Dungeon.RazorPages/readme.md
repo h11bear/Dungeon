@@ -52,3 +52,6 @@ dotnet add package Microsoft.AspNetCore.Identity.UI
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 dotnet add package Microsoft.Extensions.Logging.AzureAppServices
 dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+
+## add reference to entity framework project
+dotnet add reference ..\Dungeon.EntityFramework\Dungeon.EntityFramework.csproj

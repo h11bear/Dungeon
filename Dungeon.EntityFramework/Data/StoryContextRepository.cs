@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dungeon.EntityFramework.Data;
 
-public class StoryContextRepository(DungeonContext context) : IStoryRepository
+public class StoryContextRepository(IDungeonContext context) : IStoryRepository
 {
     public Room FindRoom(Story story, string roomName)
     {

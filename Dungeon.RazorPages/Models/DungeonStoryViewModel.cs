@@ -22,11 +22,11 @@ namespace Dungeon.RazorPages.Models
 
         public string Headline { get; set; }
 
-        public string RoomName
+        public int CurrentRoomId
         {
             get
             {
-                return Story.CurrentRoom.Name;
+                return Story.CurrentRoom.RoomId;
             }
         }
         public Story Story { get; }

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dungeon.Logic\Dungeon.Logic.csproj" />
+    <ProjectReference Include="..\Dungeon.EntityFramework\Dungeon.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

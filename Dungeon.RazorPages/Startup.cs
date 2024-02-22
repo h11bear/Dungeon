@@ -12,6 +12,8 @@ using Dungeon.RazorPages.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Dungeon.EntityFramework.Data;
+using Dungeon.Logic.Data;
 
 namespace Dungeon.RazorPages
 {
@@ -33,6 +35,9 @@ namespace Dungeon.RazorPages
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
+            
+            services.AddScoped<IDungeonContext, DungeonContext>();
+            services.AddScoped<IStoryRepository, StoryContextRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

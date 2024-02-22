@@ -17,25 +17,27 @@ namespace Dungeon.RazorPages.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IConfiguration _configuration;
-        public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration)
+        private readonly IStoryRepository _storyRepository;
+        public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration, IStoryRepository storyRepository)
         {
             _logger = logger;
             _configuration = configuration;
+            _storyRepository = storyRepository;
             _logger.LogWarning("Hello dungeon logging!");
             DatabaseHost = _configuration.GetValue<string>("AppSettings:DatabaseHost");
         }
 
         public DungeonStoryViewModel DungeonStory { get; private set; }
         public string DatabaseHost {get;}
-        public IActionResult OnGet(string roomName, string keyword)
+        public IActionResult OnGet(int roomId, string keyword)
         {
             Story dungeonStory = GetStory();
-            if (!string.IsNullOrEmpty(roomName))
+            if (roomId > 0)
             {
                 try
                 {
-                    dungeonStory.Resume(roomName);
-                    dungeonStory.Navigate(keyword);
+                    dungeonStory.Resume(_storyRepository, roomId);
+                    dungeonStory.Navigate(_storyRepository, keyword);
                 }
                 catch(NavigationException ex)
                 {
@@ -60,9 +62,10 @@ namespace Dungeon.RazorPages.Pages
 
         private Story GetStory()
         {
-            StoryXmlRepository repository = new StoryXmlRepository(Path.Combine(_configuration.GetValue<string>("Dungeon:StoryPath"), "MainDungeon.xml"));
-            var dungeonStory = repository.GetStory("main");
-            return dungeonStory;
+            return _storyRepository.GetStory("main");
+            // StoryXmlRepository repository = new StoryXmlRepository(Path.Combine(_configuration.GetValue<string>("Dungeon:StoryPath"), "MainDungeon.xml"));
+            // var dungeonStory = repository.GetStory("main");
+            // return dungeonStory;
         }
 
     }

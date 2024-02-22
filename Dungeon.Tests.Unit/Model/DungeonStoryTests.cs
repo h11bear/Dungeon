@@ -81,7 +81,8 @@ public class DungeonStoryTests
         var monsterRoom = new Room("monsterRoom", "a scary monster is in front of you, run or fight?");
 
         var story = new Story("test story", entrance);
-        story.Resume(monsterRoom);
+        _mockRepo.Setup(mr => mr.Navigate(5)).Returns(monsterRoom);
+        story.Resume(_mockRepo.Object, 5);
         
         story.Narrative.Should().Be("a scary monster is in front of you, run or fight?");
     }
