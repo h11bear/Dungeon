@@ -15,9 +15,7 @@ public class Story
     public Story(string name, Room entrance)
     {
         Name = name;
-        //this._rooms.AddRange(rooms);
         Entrance = entrance;
-        _currentRoom = entrance;
     }
 
     public int StoryId { get; private set; }
@@ -29,6 +27,10 @@ public class Story
     {
         get
         {
+            if (_currentRoom == null)
+            {
+                _currentRoom = Entrance;
+            }
             return _currentRoom;
         }
     }
@@ -37,7 +39,7 @@ public class Story
     {
         get
         {
-            return _currentRoom.Narrative;
+            return CurrentRoom.Narrative;
         }
     }
 
@@ -56,9 +58,6 @@ public class Story
             return _currentRoom.EndOfGame;
         }
     }
-
-    //private List<Room> _rooms = new List<Room>();
-    //public IEnumerable<Room> Rooms => _rooms;
 
     public Room Entrance { get; private set; }
 
