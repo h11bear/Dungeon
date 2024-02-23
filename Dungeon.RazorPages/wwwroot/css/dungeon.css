@@ -1,0 +1,32 @@
+.story-container {
+    position: relative;
+    background-color: red;
+}
+.room-image {
+    width: 100%;
+}
+.story-content {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    width: 100%;
+}
+.narrative {
+    position: relative;
+    z-index: 2;
+    padding: 1em;
+    text-align: center;
+    margin-right: 60px;
+    font-size: larger;
+}
+.narrative-background {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 60px;
+    height: 100%;
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 2em;
+}

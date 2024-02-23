@@ -5,25 +5,31 @@
     var dungeonStory = Model.DungeonStory;
 }
 
-<div class="text-center">
-    <h1 class="display-4">@dungeonStory.Headline</h1>
-     <p>
-        @foreach (var storyFragment in dungeonStory.StoryFragments)
-        {
-            if (storyFragment.IsLink)
+<div class="story-container">
+    <img class="room-image" src="~/Assets/well-lit-dungeon.png" />
+    <div class="story-content">
+        <div class="narrative-background"></div>
+        <div class="narrative">
+            <h1 class="display-4">@dungeonStory.Headline</h1>
+            <p>
+                @foreach (var storyFragment in dungeonStory.StoryFragments)
+                {
+                    if (storyFragment.IsLink)
+                    {
+                        <text><a href="/@dungeonStory.CurrentRoomId/@storyFragment.Text">@storyFragment.Text</a></text>
+                    }
+                    else
+                    {
+                        <text>@storyFragment.Text</text>
+                    }
+                }
+            </p>
+            @if (dungeonStory.EndOfGame)
             {
-                <text><a href="/@dungeonStory.CurrentRoomId/@storyFragment.Text">@storyFragment.Text</a></text>
+                <p>You've reached the end of your journey, thanks for playing!</p>
+                <p><a href="/">Play again</a></p>
             }
-            else
-            {
-                <text>@storyFragment.Text</text>
-            }
-        }
-    </p>
-    @if (dungeonStory.EndOfGame)
-    {
-        <p>You've reached the end of your journey, thanks for playing!</p>
-        <p><a href="/">Play again</a></p>
-    }
-    <div>Host settings @Model.DatabaseHost</div>
+        </div>
+    </div>
 </div>
+<div>Host settings @Model.DatabaseHost</div>

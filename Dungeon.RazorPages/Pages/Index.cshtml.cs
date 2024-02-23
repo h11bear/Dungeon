@@ -31,7 +31,7 @@ namespace Dungeon.RazorPages.Pages
         public string DatabaseHost {get;}
         public IActionResult OnGet(int roomId, string keyword)
         {
-            Story dungeonStory = GetStory();
+            Story dungeonStory = _storyRepository.GetStory("main");
             if (roomId > 0)
             {
                 try
@@ -58,14 +58,6 @@ namespace Dungeon.RazorPages.Pages
             DungeonStory = new DungeonStoryViewModel(dungeonStory);
 
             return Page();
-        }
-
-        private Story GetStory()
-        {
-            return _storyRepository.GetStory("main");
-            // StoryXmlRepository repository = new StoryXmlRepository(Path.Combine(_configuration.GetValue<string>("Dungeon:StoryPath"), "MainDungeon.xml"));
-            // var dungeonStory = repository.GetStory("main");
-            // return dungeonStory;
         }
 
     }
